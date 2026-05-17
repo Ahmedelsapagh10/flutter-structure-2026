@@ -7,6 +7,7 @@ import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/features/main_screen/cubit/cubit.dart';
 import 'package:new_strucuture/features/main_screen/cubit/state.dart';
 import 'package:new_strucuture/config/themes/theme_cubit.dart';
+import 'package:new_strucuture/config/themes/theme_helper.dart';
 import 'package:new_strucuture/core/utils/restart_app_class.dart';
 import '../data/model/product_model.dart';
 
@@ -41,12 +42,13 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _showProductDetails(BuildContext context, ProductModel product) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bottomSheetBg = isDark ? const Color(0xFF1B2639) : Colors.white;
-    final detailsBg = isDark ? const Color(0xFF151F30) : AppColors.secondary;
-    final textColor = isDark ? Colors.white : AppColors.black;
-    final subtitleColor = isDark ? Colors.white70 : AppColors.text;
-    final borderColor = isDark ? const Color(0xFF223048) : AppColors.greye8;
+    final colors = ThemeHelper.colorsOf(context);
+    final isDark = ThemeHelper.isDarkMode(context);
+    final bottomSheetBg = colors.surface;
+    final detailsBg = colors.background2;
+    final textColor = colors.black;
+    final subtitleColor = colors.greyA8;
+    final borderColor = colors.borderColor;
 
     showModalBottomSheet(
       context: context,
@@ -68,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                 height: 4,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF223048) : AppColors.greye8,
+                  color: borderColor,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -271,12 +273,13 @@ class _MainScreenState extends State<MainScreen> {
     final double horizontalPadding = MediaQuery.of(context).size.width > 800
         ? 64.0
         : 16.0;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final colors = ThemeHelper.colorsOf(context);
+    final isDark = ThemeHelper.isDarkMode(context);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : AppColors.secondary,
+      backgroundColor: colors.background2,
       appBar: AppBar(
-        backgroundColor: isDark ? AppColors.bgDark : Colors.white,
+        backgroundColor: colors.surface,
         elevation: 0,
         centerTitle: false,
         title: Row(
@@ -294,7 +297,7 @@ class _MainScreenState extends State<MainScreen> {
             Text(
               'app_name'.tr(),
               style: TextStyle(
-                color: isDark ? Colors.white : AppColors.primary,
+                color: colors.textPrimary,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -339,7 +342,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
-          child: Container(color: AppColors.greye8, height: 1),
+          child: Container(color: colors.borderColor, height: 1),
         ),
       ),
       body: BlocBuilder<MainCubit, MainState>(
@@ -435,13 +438,13 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? AppColors.primary
-                                  : (isDark ? const Color(0xFF1B2639) : Colors.white),
+                                  ? colors.fixedPrimary
+                                  : colors.surface,
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
                                 color: isSelected
-                                    ? AppColors.primary
-                                    : (isDark ? const Color(0xFF223048) : AppColors.greye8),
+                                    ? colors.fixedPrimary
+                                    : colors.borderColor,
                                 width: 1,
                               ),
                             ),
@@ -563,11 +566,11 @@ class _MainScreenState extends State<MainScreen> {
 
   // Horizontal Card Builder
   Widget _buildHorizontalCard(BuildContext context, ProductModel product) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final cardBg = isDark ? const Color(0xFF1B2639) : Colors.white;
-    final cardDetailsBg = isDark ? const Color(0xFF151F30) : AppColors.secondary;
-    final textColor = isDark ? Colors.white : AppColors.black;
-    final borderColor = isDark ? const Color(0xFF223048) : AppColors.greye8;
+    final colors = ThemeHelper.colorsOf(context);
+    final cardBg = colors.surface;
+    final cardDetailsBg = colors.background2;
+    final textColor = colors.black;
+    final borderColor = colors.borderColor;
 
     return GestureDetector(
       onTap: () => _showProductDetails(context, product),
@@ -685,11 +688,11 @@ class _MainScreenState extends State<MainScreen> {
   Widget _buildStaggeredCard(BuildContext context, ProductModel product, int index) {
     // Dynamic image height to ensure premium and visually-appealing staggered masonry layout
     final double imageHeight = 100.0 + (index % 3) * 30.0;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final cardBg = isDark ? const Color(0xFF1B2639) : Colors.white;
-    final cardDetailsBg = isDark ? const Color(0xFF151F30) : AppColors.secondary;
-    final textColor = isDark ? Colors.white : AppColors.black;
-    final borderColor = isDark ? const Color(0xFF223048) : AppColors.greye8;
+    final colors = ThemeHelper.colorsOf(context);
+    final cardBg = colors.surface;
+    final cardDetailsBg = colors.background2;
+    final textColor = colors.black;
+    final borderColor = colors.borderColor;
 
     return GestureDetector(
       onTap: () => _showProductDetails(context, product),

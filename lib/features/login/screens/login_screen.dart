@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/core/exports.dart';
+import 'package:new_strucuture/config/themes/theme_helper.dart';
 import '../../../config/routes/app_routes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -70,8 +71,17 @@ class _LoginScreenState extends State<LoginScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final bool isDesktop = screenWidth > 600;
 
+    final colors = ThemeHelper.colorsOf(context);
+    final scaffoldBg = colors.background2;
+    final cardBg = colors.surface;
+    final cardBorder = colors.borderColor;
+    final textColor = colors.black;
+    final primaryTextColor = colors.textPrimary;
+    final fieldBg = colors.background;
+    final fieldBorder = colors.borderColor;
+
     return Scaffold(
-      backgroundColor: AppColors.secondary, // Light grayish blue background
+      backgroundColor: scaffoldBg,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -82,9 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 maxWidth: isDesktop ? 400.0 : double.infinity,
               ),
               decoration: BoxDecoration(
-                color: AppColors.white,
+                color: cardBg,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.greye8, width: 1),
+                border: Border.all(color: cardBorder, width: 1),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.04),
@@ -119,8 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "welcome_back".tr(),
                         style: getBoldStyle(
-                          fontSize: 22.0, // Fixed size to prevent ScreenUtil explosion
-                          color: AppColors.primary49,
+                          fontSize: 22.0,
+                          color: primaryTextColor,
                         ),
                       ),
                     ),
@@ -129,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "sign_in_subtitle".tr(),
                         style: getRegularStyle(
-                          fontSize: 13.0, // Fixed size
+                          fontSize: 13.0,
                           color: AppColors.greya8,
                         ),
                       ),
@@ -140,24 +150,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       "username_email".tr(),
                       style: getBoldStyle(
-                        fontSize: 13.0, // Fixed size
-                        color: AppColors.primary49,
+                        fontSize: 13.0,
+                        color: primaryTextColor,
                       ),
                     ),
                     const SizedBox(height: 6),
                     TextFormField(
                       controller: _emailController,
-                      style: const TextStyle(fontSize: 14, color: AppColors.black),
+                      style: TextStyle(fontSize: 14, color: textColor),
                       decoration: InputDecoration(
                         hintText: "enter_username_email".tr(),
                         hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
                         prefixIcon: const Icon(Icons.person_outline_rounded, size: 20, color: AppColors.greya8),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                         filled: true,
-                        fillColor: AppColors.white,
+                        fillColor: fieldBg,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: AppColors.greye8, width: 1),
+                          borderSide: BorderSide(color: fieldBorder, width: 1),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -185,15 +195,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       "password".tr(),
                       style: getBoldStyle(
-                        fontSize: 13.0, // Fixed size
-                        color: AppColors.primary49,
+                        fontSize: 13.0,
+                        color: primaryTextColor,
                       ),
                     ),
                     const SizedBox(height: 6),
                     TextFormField(
                       controller: _passwordController,
                       obscureText: !_showPassword,
-                      style: const TextStyle(fontSize: 14, color: AppColors.black),
+                      style: TextStyle(fontSize: 14, color: textColor),
                       decoration: InputDecoration(
                         hintText: "enter_password".tr(),
                         hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
@@ -212,10 +222,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                         filled: true,
-                        fillColor: AppColors.white,
+                        fillColor: fieldBg,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: AppColors.greye8, width: 1),
+                          borderSide: BorderSide(color: fieldBorder, width: 1),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -278,7 +288,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           backgroundColor: AppColors.primary,
                           foregroundColor: AppColors.white,
                           disabledBackgroundColor: AppColors.primary.withOpacity(0.6),
-                          elevation: 0, // Simplified flat styling
+                          elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

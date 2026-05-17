@@ -1,5 +1,4 @@
 import 'package:new_strucuture/app_bloc_observer.dart';
-import 'package:new_strucuture/config/themes/theme_noti.dart';
 import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/core/notification_services/notification_service.dart';
 import 'package:new_strucuture/core/utils/connectivity/connectivity.dart';
@@ -49,7 +48,6 @@ Future<void> initializationClass() async {
 
   prefs = await SharedPreferences.getInstance();
   SystemUiStyle.overlayStyle();
-  await ThemeNotifier.init();
   await ConnectivityHandler().checkConnection();
 
   secureStorage = FlutterSecureStorage(
