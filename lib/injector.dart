@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:new_strucuture/config/themes/theme_cubit.dart';
 import 'package:new_strucuture/features/login/cubit/cubit.dart';
 import 'package:new_strucuture/features/login/data/login_repo.dart';
 import 'package:new_strucuture/features/main_screen/cubit/cubit.dart';
@@ -25,6 +26,9 @@ Future<void> setupCubit() async {
     () => MainCubit(
       serviceLocator(),
     ),
+  );
+  serviceLocator.registerFactory(
+    () => ThemeCubit(),
   );
 }
 

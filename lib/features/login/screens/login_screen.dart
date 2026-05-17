@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/core/exports.dart';
 import '../../../config/routes/app_routes.dart';
 
@@ -40,12 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Row(
-              children: const [
-                Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
-                SizedBox(width: 8),
+              children: [
+                const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+                const SizedBox(width: 8),
                 Text(
-                  'Welcome back! Redirecting...',
-                  style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
+                  'welcome_back_redirecting'.tr(),
+                  style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
@@ -101,16 +102,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     // Header Logo/Icon
                     Center(
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.08),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.security_rounded,
-                          size: 32,
-                          color: AppColors.primary,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          ImageAssets.logoImage,
+                          height: 64,
+                          width: 64,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -119,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Welcome Text
                     Center(
                       child: Text(
-                        "Welcome Back",
+                        "welcome_back".tr(),
                         style: getBoldStyle(
                           fontSize: 22.0, // Fixed size to prevent ScreenUtil explosion
                           color: AppColors.primary49,
@@ -129,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 6),
                     Center(
                       child: Text(
-                        "Sign in to your account",
+                        "sign_in_subtitle".tr(),
                         style: getRegularStyle(
                           fontSize: 13.0, // Fixed size
                           color: AppColors.greya8,
@@ -140,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     // Username/Email Field
                     Text(
-                      "Username or Email",
+                      "username_email".tr(),
                       style: getBoldStyle(
                         fontSize: 13.0, // Fixed size
                         color: AppColors.primary49,
@@ -151,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _emailController,
                       style: const TextStyle(fontSize: 14, color: AppColors.black),
                       decoration: InputDecoration(
-                        hintText: "Enter your email or username",
+                        hintText: "enter_username_email".tr(),
                         hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
                         prefixIcon: const Icon(Icons.person_outline_rounded, size: 20, color: AppColors.greya8),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -176,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return "Username or email is required";
+                          return "username_email_required".tr();
                         }
                         return null;
                       },
@@ -185,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     // Password Field
                     Text(
-                      "Password",
+                      "password".tr(),
                       style: getBoldStyle(
                         fontSize: 13.0, // Fixed size
                         color: AppColors.primary49,
@@ -197,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: !_showPassword,
                       style: const TextStyle(fontSize: 14, color: AppColors.black),
                       decoration: InputDecoration(
-                        hintText: "Enter your password",
+                        hintText: "enter_password".tr(),
                         hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
                         prefixIcon: const Icon(Icons.lock_outline_rounded, size: 20, color: AppColors.greya8),
                         suffixIcon: IconButton(
@@ -234,10 +232,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Password is required";
+                          return "password_required".tr();
                         }
                         if (value.length < 4) {
-                          return "Password must be at least 4 characters";
+                          return "password_min_length".tr();
                         }
                         return null;
                       },
@@ -251,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: const Text("Reset link sent to registered email."),
+                              content: Text("reset_link_sent".tr()),
                               behavior: SnackBarBehavior.floating,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6),
@@ -259,9 +257,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         },
-                        child: const Text(
-                          "Forgot Password?",
-                          style: TextStyle(
+                        child: Text(
+                          "forgot_password".tr(),
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: AppColors.primary,
@@ -294,9 +292,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                                 ),
                               )
-                            : const Text(
-                                "Sign In",
-                                style: TextStyle(
+                            : Text(
+                                "sign_in".tr(),
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,

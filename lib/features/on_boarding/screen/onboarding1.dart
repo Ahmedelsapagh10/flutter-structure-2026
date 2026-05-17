@@ -48,7 +48,6 @@ class OnBoarding1 extends StatelessWidget {
                   'نجاحك في البيع يبدأ هنا',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontFamily: 'Tajawal',
                       fontWeight: FontWeight.bold,
                       fontSize: getWidthSize(context) / 18),
                 ),
@@ -59,7 +58,6 @@ class OnBoarding1 extends StatelessWidget {
                   'أطلق إمكانياتك كمندوب مبيعات، وتابع فرصك وصفقاتك بكل سهولة.',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontFamily: 'Tajawal',
                       fontSize: getWidthSize(context) / 22),
                 ),
               ),

@@ -1,25 +1,43 @@
 import 'package:flutter/material.dart';
-
 import 'package:new_strucuture/core/utils/app_colors.dart';
+import 'package:new_strucuture/core/utils/app_strings.dart';
 
 class AppTheme {
   static ThemeData lightTheme({required BuildContext context}) {
+    const fontName = AppStrings.fontFamily;
+
     return ThemeData(
-      fontFamily: 'Cairo',
+      fontFamily: fontName,
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.bgLigth,
-      textTheme: const TextTheme(
-        bodySmall: TextStyle(color: AppColors.textLight, fontSize: 14),
-        bodyMedium: TextStyle(color: AppColors.textLight, fontSize: 16),
-        bodyLarge: TextStyle(color: AppColors.textLight, fontSize: 18),
+      textTheme: TextTheme(
+        bodySmall: TextStyle(
+          color: AppColors.textLight,
+          fontSize: 14,
+          fontFamily: fontName,
+        ),
+        bodyMedium: TextStyle(
+          color: AppColors.textLight,
+          fontSize: 16,
+          fontFamily: fontName,
+        ),
+        bodyLarge: TextStyle(
+          color: AppColors.textLight,
+          fontSize: 18,
+          fontFamily: fontName,
+        ),
         titleLarge: TextStyle(
-            color: AppColors.textLight,
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
+          color: AppColors.textLight,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          fontFamily: fontName,
+        ),
         headlineMedium: TextStyle(
-            color: AppColors.textLight,
-            fontSize: 22,
-            fontWeight: FontWeight.bold),
+          color: AppColors.textLight,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          fontFamily: fontName,
+        ),
       ),
       checkboxTheme: CheckboxThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -32,9 +50,15 @@ class AppTheme {
       tabBarTheme: TabBarThemeData(
         overlayColor: WidgetStatePropertyAll(AppColors.primary),
         labelStyle: TextStyle(
-            fontSize: 14, fontFamily: 'Tajawal', fontWeight: FontWeight.bold),
+          fontSize: 14,
+          fontFamily: fontName,
+          fontWeight: FontWeight.bold,
+        ),
         unselectedLabelStyle: TextStyle(
-            fontSize: 14, fontFamily: 'Tajawal', fontWeight: FontWeight.bold),
+          fontSize: 14,
+          fontFamily: fontName,
+          fontWeight: FontWeight.bold,
+        ),
         labelColor: AppColors.primary,
         unselectedLabelColor: AppColors.greyfa,
         indicatorColor: AppColors.primary,
@@ -45,17 +69,14 @@ class AppTheme {
           backgroundColor: WidgetStatePropertyAll(AppColors.bgLigth),
           overlayColor: WidgetStatePropertyAll(AppColors.greyfa),
           textStyle: WidgetStatePropertyAll(
-            TextStyle(
-              fontFamily: 'Cairo',
-              fontWeight: FontWeight.w500,
-            ),
+            TextStyle(fontFamily: fontName, fontWeight: FontWeight.w500),
           ),
         ),
       ),
       dialogTheme: DialogThemeData(backgroundColor: AppColors.white),
       appBarTheme: AppBarTheme(
         centerTitle: true,
-        iconTheme: IconThemeData(color: AppColors.primary),
+        iconTheme: const IconThemeData(color: AppColors.primary),
         shadowColor: AppColors.greyfa,
         color: AppColors.white,
         toolbarHeight: 60,
@@ -63,42 +84,60 @@ class AppTheme {
           fontSize: 20,
           color: AppColors.primary,
           fontWeight: FontWeight.bold,
-          fontFamily: 'Cairo',
+          fontFamily: fontName,
         ),
       ),
     );
   }
 
   static ThemeData darkTheme({required BuildContext context}) {
+    const fontName = AppStrings.fontFamily;
+
     return ThemeData(
-      fontFamily: 'Cairo',
+      fontFamily: fontName,
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.bgDark,
       textTheme: TextTheme(
-        bodySmall: TextStyle(color: AppColors.textDark, fontSize: 14),
-        bodyMedium: TextStyle(color: AppColors.textDark, fontSize: 16),
-        bodyLarge: TextStyle(color: AppColors.textDark, fontSize: 18),
+        bodySmall: TextStyle(
+          color: AppColors.textDark,
+          fontSize: 14,
+          fontFamily: fontName,
+        ),
+        bodyMedium: TextStyle(
+          color: AppColors.textDark,
+          fontSize: 16,
+          fontFamily: fontName,
+        ),
+        bodyLarge: TextStyle(
+          color: AppColors.textDark,
+          fontSize: 18,
+          fontFamily: fontName,
+        ),
         titleLarge: TextStyle(
-            color: const Color.fromARGB(255, 255, 23, 23),
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
+          color: const Color.fromARGB(255, 255, 23, 23),
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          fontFamily: fontName,
+        ),
         headlineMedium: TextStyle(
-            color: AppColors.textDark,
-            fontSize: 22,
-            fontWeight: FontWeight.bold),
+          color: AppColors.textDark,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          fontFamily: fontName,
+        ),
       ),
       checkboxTheme: CheckboxThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        checkColor: WidgetStatePropertyAll<Color>(AppColors.bgDark),
+        checkColor: const WidgetStatePropertyAll<Color>(AppColors.bgDark),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: Color(0xFF2b3444),
+        fillColor: const Color(0xFF2b3444),
         filled: true,
         border: InputBorder.none,
-        hintStyle: TextStyle(color: AppColors.textDark),
-        labelStyle: TextStyle(color: AppColors.textDark),
+        hintStyle: TextStyle(color: AppColors.textDark, fontFamily: fontName),
+        labelStyle: TextStyle(color: AppColors.textDark, fontFamily: fontName),
       ),
-      iconButtonTheme: IconButtonThemeData(
+      iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
           iconColor: WidgetStatePropertyAll(AppColors.text2Dark),
         ),
@@ -106,9 +145,15 @@ class AppTheme {
       tabBarTheme: TabBarThemeData(
         overlayColor: WidgetStatePropertyAll(AppColors.primary),
         labelStyle: TextStyle(
-            fontSize: 14, fontFamily: 'Tajawal', fontWeight: FontWeight.bold),
+          fontSize: 14,
+          fontFamily: fontName,
+          fontWeight: FontWeight.bold,
+        ),
         unselectedLabelStyle: TextStyle(
-            fontSize: 14, fontFamily: 'Tajawal', fontWeight: FontWeight.bold),
+          fontSize: 14,
+          fontFamily: fontName,
+          fontWeight: FontWeight.bold,
+        ),
         labelColor: AppColors.primary,
         unselectedLabelColor: AppColors.greyfa,
         indicatorColor: AppColors.primary,
@@ -119,14 +164,11 @@ class AppTheme {
           backgroundColor: WidgetStatePropertyAll(AppColors.bgDark),
           overlayColor: WidgetStatePropertyAll(AppColors.grey2Dark),
           textStyle: WidgetStatePropertyAll(
-            TextStyle(
-              fontFamily: 'Cairo',
-              fontWeight: FontWeight.w500,
-            ),
+            TextStyle(fontFamily: fontName, fontWeight: FontWeight.w500),
           ),
         ),
       ),
-      dialogTheme: DialogThemeData(backgroundColor: AppColors.black),
+      dialogTheme: const DialogThemeData(backgroundColor: AppColors.black),
       appBarTheme: AppBarTheme(
         centerTitle: true,
         iconTheme: IconThemeData(color: AppColors.white),
@@ -137,7 +179,7 @@ class AppTheme {
           fontSize: 20,
           color: AppColors.white,
           fontWeight: FontWeight.bold,
-          fontFamily: 'Cairo',
+          fontFamily: fontName,
         ),
       ),
     );

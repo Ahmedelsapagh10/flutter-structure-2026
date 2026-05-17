@@ -91,7 +91,6 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
                                   child: Text(
                                     trans.tr('next'),
                                     style: TextStyle(
-                                        fontFamily: 'Tajawal',
                                         color: AppColors.white,
                                         fontSize: getWidthSize(context) / 22),
                                   ),
@@ -118,7 +117,6 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
                                   child: Text(
                                     trans.tr('skip'),
                                     style: TextStyle(
-                                        fontFamily: 'Tajawal',
                                         color: AppColors.primary,
                                         fontSize: getWidthSize(context) / 22),
                                   ),
@@ -156,7 +154,6 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
                                   child: Text(
                                     trans.tr('start_now'),
                                     style: TextStyle(
-                                        fontFamily: 'Tajawal',
                                         color: AppColors.white,
                                         fontSize: getWidthSize(context) / 22),
                                   ),

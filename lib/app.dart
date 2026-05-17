@@ -6,6 +6,7 @@ import 'package:new_strucuture/features/main_screen/cubit/cubit.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
+import 'config/themes/theme_cubit.dart';
 import 'core/utils/app_strings.dart';
 import 'package:new_strucuture/injector.dart' as injector;
 import 'features/login/cubit/cubit.dart';
@@ -31,8 +32,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // print(text);
-
     return MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -44,31 +43,22 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(
             create: (_) => injector.serviceLocator<MainCubit>(),
           ),
+          BlocProvider(
+            create: (_) => injector.serviceLocator<ThemeCubit>(),
+          ),
         ],
-        child: ValueListenableBuilder<ThemeMode>(
-            valueListenable: ThemeNotifier.themeModeNotifier,
-            builder: (context, themeMode, _) {
+        child: BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, themeMode) {
               return GetMaterialApp(
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
                 theme: AppTheme.lightTheme(context: context),
                 darkTheme: AppTheme.darkTheme(context: context),
                 themeMode: themeMode,
-
-                // standard dark theme
                 localizationsDelegates: context.localizationDelegates,
                 debugShowCheckedModeBanner: false,
                 title: AppStrings.appName,
                 onGenerateRoute: AppRoutes.onGenerateRoute,
-                // routes: {
-                // '/': (context) => isWithNotification
-                // ? (initialMessageRcieved?.data['type'] == "office_request")
-                // ? DetailsIssueScreen(newCourtCase: NewCourtCase())
-                // : ((initialMessageRcieved?.data['type'] == "court")
-                // ? DetailsIssueCustomerScreen()
-                // : NotificationsScreen(isLawyer: userType)
-                // : const SplashScreen(),
-                //   }
               );
             }));
   }
