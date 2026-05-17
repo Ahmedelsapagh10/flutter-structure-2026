@@ -23,12 +23,14 @@ class DioConsumer implements BaseApiConsumer {
   }
 
   void _configureClient() {
-    (client.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
-        (HttpClient client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-      return client;
-    };
+    if (!kIsWeb) {
+      (client.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
+          (HttpClient client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+        return client;
+      };
+    }
 
     client.options
       ..baseUrl = EndPoints.baseUrl

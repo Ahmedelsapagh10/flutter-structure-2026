@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app.dart';
 import 'core/init_config/initalization_config.dart';
 import 'core/utils/restart_app_class.dart';
+
 void main() async {
   await initializationClass();
   runApp(
@@ -14,14 +15,15 @@ void main() async {
       startLocale: const Locale('ar', ''),
       fallbackLocale: const Locale('ar', ''),
       child: HotRestartController(
-          child: ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (ctx, child) {
-          return const MyApp();
-        },
-      )),
+        child: ScreenUtilInit(
+          designSize: const Size(360, 690),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (ctx, child) {
+            return const MyApp();
+          },
+        ),
+      ),
     ),
   );
 }

@@ -12,8 +12,6 @@ import 'features/main_screen/data/main_repo.dart';
 
 final serviceLocator = GetIt.instance;
 Future<void> setupCubit() async {
-  serviceLocator.registerFactory(() => SplashCubit());
-
   serviceLocator.registerFactory(
     () => SplashCubit(),
   );
@@ -36,6 +34,7 @@ Future<void> setupRepo() async {
 }
 
 Future<void> setupDependencyInjection() async {
+  await serviceLocator.reset();
   final sharedPreferences = await SharedPreferences.getInstance();
   serviceLocator.registerLazySingleton(() => sharedPreferences);
 

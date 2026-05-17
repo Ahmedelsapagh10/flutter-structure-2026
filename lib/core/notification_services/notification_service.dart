@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../../config/routes/app_routes.dart';
 import '../../features/login/data/model/login_model.dart';
 import '../exports.dart';
 import '../preferences/preferences.dart';
+import '../init_config/initalization_config.dart';
 
 bool isWithNotification = false;
 String notificationId = "0";
@@ -25,7 +27,7 @@ class NotificationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   /// Firebase Messaging Instance
-  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  FirebaseMessaging get _messaging => FirebaseMessaging.instance;
 
   /// Local Notifications Plugin
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
@@ -35,7 +37,11 @@ class NotificationService {
 
   /// **Initialize Notifications**
   Future<void> initialize() async {
-    await _initializeFirebaseMessaging();
+    if (isFirebaseInitialized) {
+      await _initializeFirebaseMessaging();
+    } else {
+      log("Skipping Firebase Messaging initialization as Firebase is not configured.");
+    }
     await _initializeLocalNotifications();
   }
 
@@ -192,14 +198,14 @@ class NotificationService {
       },
     );
 
-    if (Platform.isAndroid) {
+    if (!kIsWeb && Platform.isAndroid) {
       await _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()
           ?.requestNotificationsPermission();
     }
 
-    if (Platform.isIOS) {
+    if (!kIsWeb && Platform.isIOS) {
       await _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
               IOSFlutterLocalNotificationsPlugin>()
