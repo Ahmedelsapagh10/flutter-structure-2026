@@ -7,7 +7,8 @@ import 'package:new_strucuture/config/routes/app_routes.dart';
 import 'package:new_strucuture/features/forget_password/data/model/forget_password_model.dart';
 import '../cubit/cubit.dart';
 import '../cubit/state.dart';
-import '../widget/otp_input_field.dart';
+import 'package:pinput/pinput.dart';
+
 
 class ForgotPasswordOtpScreen extends StatefulWidget {
   const ForgotPasswordOtpScreen({super.key});
@@ -44,6 +45,33 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
     final cardBg = colors.surface;
     final cardBorder = colors.borderColor;
     final primaryTextColor = colors.textPrimary;
+
+    final defaultPinTheme = PinTheme(
+      width: 56.w,
+      height: 64.h,
+      textStyle: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: colors.black,
+      ),
+      decoration: BoxDecoration(
+        color: cardBg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: cardBorder,
+          width: 1.5,
+        ),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: AppColors.primary, width: 1.5),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: cardBorder, width: 1.5),
+    );
+
 
     return Scaffold(
       backgroundColor: scaffoldBg,
@@ -143,10 +171,19 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                       const SizedBox(height: 28),
 
                       // OTP custom widget fields
-                      OtpInputField(
-                        onCompleted: (code) {
+                      Pinput(
+                        length: 4,
+                        defaultPinTheme: defaultPinTheme,
+                        focusedPinTheme: focusedPinTheme,
+                        submittedPinTheme: submittedPinTheme,
+                        validator: (s) {
+                          return s?.length == 4 ? null : 'verification_code_invalid'.tr();
+                        },
+                        pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                        showCursor: true,
+                        onCompleted: (pin) {
                           setState(() {
-                            _otpCode = code;
+                            _otpCode = pin;
                           });
                           _verify(email);
                         },

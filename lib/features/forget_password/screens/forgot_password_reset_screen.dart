@@ -12,7 +12,8 @@ class ForgotPasswordResetScreen extends StatefulWidget {
   const ForgotPasswordResetScreen({super.key});
 
   @override
-  State<ForgotPasswordResetScreen> createState() => _ForgotPasswordResetScreenState();
+  State<ForgotPasswordResetScreen> createState() =>
+      _ForgotPasswordResetScreenState();
 }
 
 class _ForgotPasswordResetScreenState extends State<ForgotPasswordResetScreen> {
@@ -33,17 +34,18 @@ class _ForgotPasswordResetScreenState extends State<ForgotPasswordResetScreen> {
   void _submit(String email, String code) {
     if (_formKey.currentState!.validate()) {
       context.read<ForgetPasswordCubit>().resetPassword(
-            email,
-            code,
-            _passwordController.text,
-            _confirmPasswordController.text,
-          );
+        email,
+        code,
+        _passwordController.text,
+        _confirmPasswordController.text,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ForgotPasswordResetArgs;
+    final args =
+        ModalRoute.of(context)!.settings.arguments as ForgotPasswordResetArgs;
     final email = args.email;
     final code = args.code;
 
@@ -181,34 +183,60 @@ class _ForgotPasswordResetScreenState extends State<ForgotPasswordResetScreen> {
                           style: TextStyle(fontSize: 14, color: textColor),
                           decoration: InputDecoration(
                             hintText: "enter_new_password".tr(),
-                            hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
-                            prefixIcon: const Icon(Icons.lock_outline_rounded, size: 20, color: AppColors.greya8),
+                            hintStyle: const TextStyle(
+                              fontSize: 13,
+                              color: AppColors.greya8,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.lock_outline_rounded,
+                              size: 20,
+                              color: AppColors.greya8,
+                            ),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                _obscurePassword
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
                                 size: 20,
                                 color: AppColors.greya8,
                               ),
-                              onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                              onPressed: () => setState(
+                                () => _obscurePassword = !_obscurePassword,
+                              ),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
+                            ),
                             filled: true,
                             fillColor: fieldBg,
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(color: fieldBorder, width: 1),
+                              borderSide: BorderSide(
+                                color: fieldBorder,
+                                width: 1,
+                              ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                              borderSide: const BorderSide(
+                                color: AppColors.primary,
+                                width: 1.5,
+                              ),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.red, width: 1),
+                              borderSide: const BorderSide(
+                                color: AppColors.red,
+                                width: 1,
+                              ),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                              borderSide: const BorderSide(
+                                color: AppColors.red,
+                                width: 1.5,
+                              ),
                             ),
                           ),
                           validator: (value) {
@@ -239,34 +267,61 @@ class _ForgotPasswordResetScreenState extends State<ForgotPasswordResetScreen> {
                           style: TextStyle(fontSize: 14, color: textColor),
                           decoration: InputDecoration(
                             hintText: "enter_confirm_password".tr(),
-                            hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
-                            prefixIcon: const Icon(Icons.lock_outline_rounded, size: 20, color: AppColors.greya8),
+                            hintStyle: const TextStyle(
+                              fontSize: 13,
+                              color: AppColors.greya8,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.lock_outline_rounded,
+                              size: 20,
+                              color: AppColors.greya8,
+                            ),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscureConfirmPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                _obscureConfirmPassword
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
                                 size: 20,
                                 color: AppColors.greya8,
                               ),
-                              onPressed: () => setState(() => _obscureConfirmPassword = !_obscureConfirmPassword),
+                              onPressed: () => setState(
+                                () => _obscureConfirmPassword =
+                                    !_obscureConfirmPassword,
+                              ),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
+                            ),
                             filled: true,
                             fillColor: fieldBg,
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(color: fieldBorder, width: 1),
+                              borderSide: BorderSide(
+                                color: fieldBorder,
+                                width: 1,
+                              ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                              borderSide: const BorderSide(
+                                color: AppColors.primary,
+                                width: 1.5,
+                              ),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.red, width: 1),
+                              borderSide: const BorderSide(
+                                color: AppColors.red,
+                                width: 1,
+                              ),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                              borderSide: const BorderSide(
+                                color: AppColors.red,
+                                width: 1.5,
+                              ),
                             ),
                           ),
                           validator: (value) {
@@ -285,11 +340,14 @@ class _ForgotPasswordResetScreenState extends State<ForgotPasswordResetScreen> {
                         SizedBox(
                           height: 48,
                           child: ElevatedButton(
-                            onPressed: isLoading ? null : () => _submit(email, code),
+                            onPressed: isLoading
+                                ? null
+                                : () => _submit(email, code),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
                               foregroundColor: Colors.white,
-                              disabledBackgroundColor: AppColors.primary.withOpacity(0.6),
+                              disabledBackgroundColor: AppColors.primary
+                                  .withOpacity(0.6),
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),

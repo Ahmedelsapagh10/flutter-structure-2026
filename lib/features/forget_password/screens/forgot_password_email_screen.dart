@@ -7,6 +7,8 @@ import 'package:new_strucuture/config/routes/app_routes.dart';
 import '../cubit/cubit.dart';
 import '../cubit/state.dart';
 
+import 'package:intl_phone_field/intl_phone_field.dart';
+
 class ForgotPasswordEmailScreen extends StatefulWidget {
   const ForgotPasswordEmailScreen({super.key});
 
@@ -17,18 +19,24 @@ class ForgotPasswordEmailScreen extends StatefulWidget {
 class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  String _completePhoneNumber = '';
+  bool _isPhoneNumber = false; // Control flag for phone number mode
 
   @override
   void dispose() {
     _emailController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      context.read<ForgetPasswordCubit>().sendCode(_emailController.text.trim());
+      final value = _isPhoneNumber ? _completePhoneNumber.trim() : _emailController.text.trim();
+      context.read<ForgetPasswordCubit>().sendCode(value);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -147,56 +155,177 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                         ),
                         const SizedBox(height: 28),
 
-                        // Email Field Label
-                        Text(
-                          "email".tr(),
-                          style: getBoldStyle(
-                            fontSize: 13.0,
-                            color: primaryTextColor,
-                          ),
+                        // Toggle Selector Row
+                        Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _isPhoneNumber = false;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: !_isPhoneNumber
+                                            ? AppColors.primary
+                                            : Colors.transparent,
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "email".tr(),
+                                      style: getBoldStyle(
+                                        fontSize: 13.0,
+                                        color: !_isPhoneNumber
+                                            ? AppColors.primary
+                                            : AppColors.greya8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _isPhoneNumber = true;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: _isPhoneNumber
+                                            ? AppColors.primary
+                                            : Colors.transparent,
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Phone Number",
+                                      style: getBoldStyle(
+                                        fontSize: 13.0,
+                                        color: _isPhoneNumber
+                                            ? AppColors.primary
+                                            : AppColors.greya8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 6),
-                        TextFormField(
-                          controller: _emailController,
-                          enabled: !isLoading,
-                          keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(fontSize: 14, color: textColor),
-                          decoration: InputDecoration(
-                            hintText: "enter_email".tr(),
-                            hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
-                            prefixIcon: const Icon(Icons.email_outlined, size: 20, color: AppColors.greya8),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                            filled: true,
-                            fillColor: fieldBg,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(color: fieldBorder, width: 1),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.red, width: 1),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                        const SizedBox(height: 20),
+
+                        if (!_isPhoneNumber) ...[
+                          // Email Field Label
+                          Text(
+                            "email".tr(),
+                            style: getBoldStyle(
+                              fontSize: 13.0,
+                              color: primaryTextColor,
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return "email_required".tr();
-                            }
-                            final regex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
-                            if (!regex.hasMatch(value.trim())) {
-                              return "email_invalid".tr();
-                            }
-                            return null;
-                          },
-                        ),
+                          const SizedBox(height: 6),
+                          TextFormField(
+                            controller: _emailController,
+                            enabled: !isLoading,
+                            keyboardType: TextInputType.emailAddress,
+                            style: TextStyle(fontSize: 14, color: textColor),
+                            decoration: InputDecoration(
+                              hintText: "enter_email".tr(),
+                              hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
+                              prefixIcon: const Icon(Icons.email_outlined, size: 20, color: AppColors.greya8),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                              filled: true,
+                              fillColor: fieldBg,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: fieldBorder, width: 1),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(color: AppColors.red, width: 1),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return "email_required".tr();
+                              }
+                              final regex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
+                              if (!regex.hasMatch(value.trim())) {
+                                return "email_invalid".tr();
+                              }
+                              return null;
+                            },
+                          ),
+                        ] else ...[
+                          // Phone Field Label
+                          Text(
+                            "Phone Number",
+                            style: getBoldStyle(
+                              fontSize: 13.0,
+                              color: primaryTextColor,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          IntlPhoneField(
+                            controller: _phoneController,
+                            enabled: !isLoading,
+                            keyboardType: TextInputType.phone,
+                            style: TextStyle(fontSize: 14, color: textColor),
+                            dropdownTextStyle: TextStyle(fontSize: 14, color: textColor),
+                            initialCountryCode: 'EG',
+                            disableLengthCheck: false,
+                            decoration: InputDecoration(
+                              hintText: "Enter your phone number",
+                              hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                              filled: true,
+                              fillColor: fieldBg,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: fieldBorder, width: 1),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(color: AppColors.red, width: 1),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                              ),
+                            ),
+                            onChanged: (phone) {
+                              _completePhoneNumber = phone.completeNumber;
+                            },
+                          ),
+                        ],
                         const SizedBox(height: 24),
+
 
                         // Submit Button
                         SizedBox(
