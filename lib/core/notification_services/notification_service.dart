@@ -153,7 +153,7 @@ class NotificationService {
     );
 
     await _flutterLocalNotificationsPlugin.initialize(
-      initSettings,
+      settings: initSettings,
 
       ///! [ON CLIECK LOCAL NOTFICATION]
       onDidReceiveNotificationResponse: (details) {
@@ -228,8 +228,12 @@ class NotificationService {
         NotificationDetails(android: androidDetails);
 
     await _flutterLocalNotificationsPlugin.show(
-        _notificationCounter++, title, body, notificationDetails,
-        payload: payload);
+      id: _notificationCounter++,
+      title: title,
+      body: body,
+      notificationDetails: notificationDetails,
+      payload: payload,
+    );
   }
 }
 

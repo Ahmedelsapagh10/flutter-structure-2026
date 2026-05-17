@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 class FilePickerService {
   static Future<String?> pickFile({required FileType type}) async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.pickFiles(
         type: type,
       );
       if (result != null) {
@@ -39,7 +39,7 @@ class ImagePickerService {
 Future<List<PlatformFile>?> pickAndUploadFiles() async {
   try {
     // Open file picker
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.pickFiles(
       compressionQuality: 0,
       allowMultiple: true,
     );
