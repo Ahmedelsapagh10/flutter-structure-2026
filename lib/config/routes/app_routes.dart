@@ -64,6 +64,7 @@ class AppRoutes {
           type: PageTransitionType.rightToLeft,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 400),
+          settings: settings,
         );
       case Routes.forgotPasswordResetRoute:
         return PageTransition(
@@ -71,6 +72,7 @@ class AppRoutes {
           type: PageTransitionType.rightToLeft,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 400),
+          settings: settings,
         );
       //
       // case Routes.resultOfLessonExam:

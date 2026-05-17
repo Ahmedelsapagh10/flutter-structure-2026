@@ -295,7 +295,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                             style: TextStyle(fontSize: 14, color: textColor),
                             dropdownTextStyle: TextStyle(fontSize: 14, color: textColor),
                             initialCountryCode: 'EG',
-                            disableLengthCheck: false,
+                            disableLengthCheck: true,
                             decoration: InputDecoration(
                               hintText: "Enter your phone number",
                               hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
@@ -319,6 +319,36 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                                   borderSide: const BorderSide(color: AppColors.red, width: 1.5),
                               ),
                             ),
+                            validator: (phone) {
+                              if (phone == null || phone.number.trim().isEmpty) {
+                                return "Phone number is required";
+                              }
+                              final number = phone.number.trim();
+                              if (phone.countryISOCode == 'EG') {
+                                final hasLeadingZero = number.startsWith('0');
+                                final checkNumber = hasLeadingZero ? number : '0$number';
+                                final validPrefixes = ['010', '011', '012', '015'];
+                                bool isValidPrefix = false;
+                                for (var prefix in validPrefixes) {
+                                  if (checkNumber.startsWith(prefix)) {
+                                    isValidPrefix = true;
+                                    break;
+                                  }
+                                }
+                                if (!isValidPrefix) {
+                                  return "Number must start with 010, 011, 012, or 015";
+                                }
+                                final expectedLength = hasLeadingZero ? 11 : 10;
+                                if (number.length != expectedLength) {
+                                  return "Egypt phone number must be $expectedLength digits";
+                                }
+                              } else {
+                                if (number.length < 7 || number.length > 15) {
+                                  return "Invalid phone number length";
+                                }
+                              }
+                              return null;
+                            },
                             onChanged: (phone) {
                               _completePhoneNumber = phone.completeNumber;
                             },
