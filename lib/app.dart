@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/features/main_screen/cubit/cubit.dart';
+import 'package:new_strucuture/features/forget_password/cubit/cubit.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
@@ -44,6 +45,9 @@ class _MyAppState extends State<MyApp> {
           ),
           BlocProvider(
             create: (_) => injector.serviceLocator<ThemeCubit>(),
+          ),
+          BlocProvider(
+            create: (_) => injector.serviceLocator<ForgetPasswordCubit>(),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(

@@ -257,14 +257,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("reset_link_sent".tr()),
-                              behavior: SnackBarBehavior.floating,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
+                          Navigator.pushNamed(
+                            context,
+                            Routes.forgotPasswordEmailRoute,
                           );
                         },
                         child: Text(
