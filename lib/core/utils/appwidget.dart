@@ -36,7 +36,7 @@ class AppWidget {
       isLoading: isLoading,
       circularProgressColor: AppColors.primary,
       borderRadius: 15.0,
-      appIcon: Image.asset(ImageAssets.appIcon),
+      appIcon: Image.asset(ImageAssets.appIconWithoutBG),
       child: Container(child: child),
     );
   }

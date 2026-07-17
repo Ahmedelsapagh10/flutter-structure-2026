@@ -17,23 +17,23 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(image,
-        fit: BoxFit.cover,
+    return Image.network(
+      image,
+      fit: BoxFit.cover,
+      height: height,
+      width: width,
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(
+          child: CircularProgressIndicator(color: AppColors.primary),
+        );
+      },
+      errorBuilder: (context, error, stackTrace) => Image.asset(
+        isUser ? ImageAssets.appIconWithoutBG : ImageAssets.appIconWithoutBG,
         height: height,
         width: width,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return Center(
-            child: CircularProgressIndicator(
-              color: AppColors.primary,
-            ),
-          );
-        },
-        errorBuilder: (context, error, stackTrace) => Image.asset(
-              isUser ? ImageAssets.profileDefault : ImageAssets.logoImage,
-              height: height,
-              width: width,
-              fit: BoxFit.cover,
-            ));
+        fit: BoxFit.cover,
+      ),
+    );
   }
 }

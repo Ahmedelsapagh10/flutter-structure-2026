@@ -5,10 +5,8 @@ const String lottiePath = 'assets/lottie';
 class ImageAssets {
   //images
   static const String appIcon = '$imagePath/app_icon.png';
-  static const String logo2Image = '$imagePath/app_icon.png';
-  static const String logo3Image = '$imagePath/app_icon.png';
-  static const String logoImage = '$imagePath/app_icon.png';
-  static const String profileDefault = '$imagePath/app_icon.png';
+  static const String appIconWithoutBG = '$imagePath/app_icon_without_bg.png';
+
   static const String introBackgroundImage = '$imagePath/on1.png';
   static const String introBackgroundImage2 = '$imagePath/on2.png';
   static const String onboardingImage1 = '$imagePath/onboarding_1.jpg';

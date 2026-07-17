@@ -121,13 +121,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     // Header Logo/Icon
                     Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.asset(
-                          ImageAssets.logoImage,
-                          height: 64,
-                          width: 64,
-                          fit: BoxFit.cover,
+                      child: Hero(
+                        tag: 'app-logo',
+                        transitionOnUserGestures: true,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            ImageAssets.appIconWithoutBG,
+                            height: 64,
+                            width: 64,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),

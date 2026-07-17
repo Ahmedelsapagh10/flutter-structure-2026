@@ -6,6 +6,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/assets_manager.dart';
 import '../cubit/onboarding_cubit.dart';
 import 'onboarding1.dart';
 import 'onboarding2.dart';
@@ -112,6 +113,45 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       ),
                     ),
                   ],
+                ),
+                PositionedDirectional(
+                  top: 0,
+                  start: 0,
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        top: 10,
+                        start: 16,
+                      ),
+                      child: Hero(
+                        tag: 'app-logo',
+                        transitionOnUserGestures: true,
+                        child: Container(
+                          width: 44,
+                          height: 44,
+                          padding: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(14),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.16),
+                                blurRadius: 18,
+                                offset: const Offset(0, 6),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(11),
+                            child: Image.asset(
+                              ImageAssets.appIconWithoutBG,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 PositionedDirectional(
                   top: 0,

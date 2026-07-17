@@ -36,7 +36,7 @@ class _CustomLoadingIndicatorState extends State<CustomLoadingIndicator>
             alignment: Alignment.center,
             children: [
               Image.asset(
-                ImageAssets.logo2Image,
+                ImageAssets.appIconWithoutBG,
                 height: 15.h,
                 width: 15.h,
               ),
@@ -60,7 +60,7 @@ class _CustomLoadingIndicatorState extends State<CustomLoadingIndicator>
               RotationTransition(
                 turns: _controller,
                 child: Image.asset(
-                  ImageAssets.logo3Image,
+                  ImageAssets.appIconWithoutBG,
                   height: 50.h,
                   width: 50.h,
                 ),
@@ -68,13 +68,7 @@ class _CustomLoadingIndicatorState extends State<CustomLoadingIndicator>
             ],
           )
         : Platform.isIOS
-            ? CircularProgressIndicator(
-                color: AppColors.primary,
-                strokeWidth: 3,
-              )
-            : CircularProgressIndicator(
-                color: AppColors.primary,
-                strokeWidth: 3,
-              );
+        ? CircularProgressIndicator(color: AppColors.primary, strokeWidth: 3)
+        : CircularProgressIndicator(color: AppColors.primary, strokeWidth: 3);
   }
 }
