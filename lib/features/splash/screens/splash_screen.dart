@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:new_strucuture/core/utils/assets_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_colors.dart';
-import '../../../core/utils/dialogs.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -14,19 +15,24 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
+  static final Uri _portfolioUrl = Uri.parse(
+    'https://elsapagh.octopusteam.net/',
+  );
+
   late Timer _timer;
 
-  _goNext() {
+  Future<void> _openPortfolio() async {
+    await launchUrl(_portfolioUrl, mode: LaunchMode.externalApplication);
+  }
+
+  void _goNext() {
     _getStoreUser();
   }
 
-  _startDelay() async {
-    _timer = Timer(
-      const Duration(seconds: 8, milliseconds: 500),
-      () {
-        _goNext();
-      },
-    );
+  Future<void> _startDelay() async {
+    _timer = Timer(const Duration(seconds: 8, milliseconds: 500), () {
+      _goNext();
+    });
   }
 
   Future<void> _getStoreUser() async {
@@ -79,11 +85,47 @@ class _SplashScreenState extends State<SplashScreen>
           Center(
             child: Hero(
               tag: 'logo',
-              child: SizedBox(
-                child: Image.asset(
-                  ImageAssets.logoImage,
-                  // height: getSize(context) / 1.2,
-                  // width: getSize(context) / 1.2,
+              child: Lottie.asset(
+                ImageAssets.splashAnimation,
+                fit: BoxFit.contain,
+                repeat: true,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 0,
+            bottom: 24,
+            left: 0,
+            child: SafeArea(
+              top: false,
+              child: Center(
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: TextButton(
+                    onPressed: _openPortfolio,
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white.withValues(alpha: 0.12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 22,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        side: BorderSide(
+                          color: Colors.white.withValues(alpha: 0.35),
+                        ),
+                      ),
+                    ),
+                    child: const Text(
+                      'Connect',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

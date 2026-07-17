@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:new_strucuture/features/login/data/model/login_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,10 +34,6 @@ class Preferences {
     }
   }
 
-
-
-
-
   Future<bool> clearUser() async {
     await secureStorage.delete(key: 'user');
     return true;
@@ -63,7 +58,7 @@ class Preferences {
   }
 
   Future<void> setDeviceToken(String token) async {
-    print('=====>> $token');
+    debugPrint('=====>> $token');
     await prefs.setString('device_token', token);
   }
 
@@ -73,9 +68,7 @@ class Preferences {
   }
 }
 
-
 // import 'dart:convert';
-
 
 // import 'package:shared_preferences/shared_preferences.dart';
 
@@ -87,7 +80,6 @@ class Preferences {
 //   Preferences._internal();
 
 //   factory Preferences() => instance;
-
 
 //   // Future<void> setFirstInstall() async {
 //   //   SharedPreferences prefs = await SharedPreferences.getInstance();

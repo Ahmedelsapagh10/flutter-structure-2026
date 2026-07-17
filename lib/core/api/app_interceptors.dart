@@ -18,7 +18,8 @@ class AppInterceptors extends Interceptor {
   @override
   void onResponse(response, ResponseInterceptorHandler handler) {
     debugPrint(
-        'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
+      'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}',
+    );
     super.onResponse(response, handler);
     if (response.statusCode == 401) {
       Preferences.instance.clearUser().then((value) {
@@ -28,10 +29,11 @@ class AppInterceptors extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     log('errrrrrrrrrrrrrrrror......................................');
     debugPrint(
-        'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+      'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
+    );
     if (err.response!.statusCode == 401 || err.response!.statusCode == 407) {
       Preferences.instance.clearUser().then((value) {
         Get.to(const SplashScreen());

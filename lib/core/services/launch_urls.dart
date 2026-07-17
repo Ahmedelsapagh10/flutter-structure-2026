@@ -20,10 +20,7 @@ class LaunchUrlsService {
   void launchCall({required String phone}) async {
     Uri phoneNumber = Uri.parse('tel:0$phone');
     log(phoneNumber.toString());
-    await launchUrl(
-      phoneNumber,
-      mode: LaunchMode.externalApplication,
-    );
+    await launchUrl(phoneNumber, mode: LaunchMode.externalApplication);
   }
 
   void launchEmail(String email, String subject) async {
@@ -38,8 +35,10 @@ class LaunchUrlsService {
     } else {}
   }
 
-  void launchFileDownload(String url,
-      {LaunchMode mode = LaunchMode.externalApplication}) async {
+  void launchFileDownload(
+    String url, {
+    LaunchMode mode = LaunchMode.externalApplication,
+  }) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url), mode: mode);
     } else {
@@ -61,14 +60,16 @@ class LaunchUrlsService {
 
   Future<void> openMap(double latitude, double longitude) async {
     final Uri googleMapsUrl = Uri.parse(
-        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
-    final Uri appleMapsUrl =
-        Uri.parse('https://maps.apple.com/?q=$latitude,$longitude');
+      'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude',
+    );
+    final Uri appleMapsUrl = Uri.parse(
+      'https://maps.apple.com/?q=$latitude,$longitude',
+    );
 
-    if (await canLaunch(googleMapsUrl.toString())) {
-      await launch(googleMapsUrl.toString());
-    } else if (await canLaunch(appleMapsUrl.toString())) {
-      await launch(appleMapsUrl.toString());
+    if (await canLaunchUrl(googleMapsUrl)) {
+      await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication);
+    } else if (await canLaunchUrl(appleMapsUrl)) {
+      await launchUrl(appleMapsUrl, mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch map';
     }

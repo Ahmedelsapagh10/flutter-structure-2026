@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
@@ -9,12 +7,12 @@ import '../cubit/cubit.dart';
 import '../cubit/state.dart';
 import 'package:pinput/pinput.dart';
 
-
 class ForgotPasswordOtpScreen extends StatefulWidget {
   const ForgotPasswordOtpScreen({super.key});
 
   @override
-  State<ForgotPasswordOtpScreen> createState() => _ForgotPasswordOtpScreenState();
+  State<ForgotPasswordOtpScreen> createState() =>
+      _ForgotPasswordOtpScreenState();
 }
 
 class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
@@ -57,10 +55,7 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: cardBorder,
-          width: 1.5,
-        ),
+        border: Border.all(color: cardBorder, width: 1.5),
       ),
     );
 
@@ -71,7 +66,6 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
     final submittedPinTheme = defaultPinTheme.copyDecorationWith(
       border: Border.all(color: cardBorder, width: 1.5),
     );
-
 
     return Scaffold(
       backgroundColor: scaffoldBg,
@@ -122,7 +116,7 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                     border: Border.all(color: cardBorder, width: 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: Colors.black.withValues(alpha: 0.04),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -137,7 +131,9 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                       Center(
                         child: CircleAvatar(
                           radius: 36,
-                          backgroundColor: AppColors.primary.withOpacity(0.1),
+                          backgroundColor: AppColors.primary.withValues(
+                            alpha: 0.1,
+                          ),
                           child: const Icon(
                             Icons.mark_email_read_outlined,
                             size: 40,
@@ -177,7 +173,9 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                         focusedPinTheme: focusedPinTheme,
                         submittedPinTheme: submittedPinTheme,
                         validator: (s) {
-                          return s?.length == 4 ? null : 'verification_code_invalid'.tr();
+                          return s?.length == 4
+                              ? null
+                              : 'verification_code_invalid'.tr();
                         },
                         pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                         showCursor: true,
@@ -198,7 +196,8 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
                             foregroundColor: Colors.white,
-                            disabledBackgroundColor: AppColors.primary.withOpacity(0.6),
+                            disabledBackgroundColor: AppColors.primary
+                                .withValues(alpha: 0.6),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -232,7 +231,9 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                             onPressed: isLoading
                                 ? null
                                 : () {
-                                    context.read<ForgetPasswordCubit>().sendCode(email);
+                                    context
+                                        .read<ForgetPasswordCubit>()
+                                        .sendCode(email);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text('reset_link_sent'.tr()),

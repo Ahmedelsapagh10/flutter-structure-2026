@@ -13,6 +13,7 @@ class ImageAssets {
   static const String introBackgroundImage = '$imagePath/on1.png';
   static const String introBackgroundImage2 = '$imagePath/on2.png';
   static const String loading = '$imagePath/on2.png';
+  static const String splashAnimation = '$imagePath/splash.json';
   // icons
   static const String phoneIcon = '$iconsPath/phone.svg';
 

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
+import 'package:new_strucuture/core/widgets/custom_button.dart';
 import '../../../config/routes/app_routes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -43,11 +44,19 @@ class _LoginScreenState extends State<LoginScreen> {
           SnackBar(
             content: Row(
               children: [
-                const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+                const Icon(
+                  Icons.check_circle_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   'welcome_back_redirecting'.tr(),
-                  style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
@@ -97,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 border: Border.all(color: cardBorder, width: 1),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
+                    color: Colors.black.withValues(alpha: 0.04),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -160,9 +169,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontSize: 14, color: textColor),
                       decoration: InputDecoration(
                         hintText: "enter_username_email".tr(),
-                        hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
-                        prefixIcon: const Icon(Icons.person_outline_rounded, size: 20, color: AppColors.greya8),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                        hintStyle: const TextStyle(
+                          fontSize: 13,
+                          color: AppColors.greya8,
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.person_outline_rounded,
+                          size: 20,
+                          color: AppColors.greya8,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 14,
+                        ),
                         filled: true,
                         fillColor: fieldBg,
                         enabledBorder: OutlineInputBorder(
@@ -171,15 +190,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                          borderSide: const BorderSide(
+                            color: AppColors.primary,
+                            width: 1.5,
+                          ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: AppColors.red, width: 1),
+                          borderSide: const BorderSide(
+                            color: AppColors.red,
+                            width: 1,
+                          ),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                          borderSide: const BorderSide(
+                            color: AppColors.red,
+                            width: 1.5,
+                          ),
                         ),
                       ),
                       validator: (value) {
@@ -206,11 +234,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontSize: 14, color: textColor),
                       decoration: InputDecoration(
                         hintText: "enter_password".tr(),
-                        hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
-                        prefixIcon: const Icon(Icons.lock_outline_rounded, size: 20, color: AppColors.greya8),
+                        hintStyle: const TextStyle(
+                          fontSize: 13,
+                          color: AppColors.greya8,
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.lock_outline_rounded,
+                          size: 20,
+                          color: AppColors.greya8,
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _showPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                            _showPassword
+                                ? Icons.visibility_off_rounded
+                                : Icons.visibility_rounded,
                             size: 20,
                             color: AppColors.greya8,
                           ),
@@ -220,7 +257,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 14,
+                        ),
                         filled: true,
                         fillColor: fieldBg,
                         enabledBorder: OutlineInputBorder(
@@ -229,15 +269,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                          borderSide: const BorderSide(
+                            color: AppColors.primary,
+                            width: 1.5,
+                          ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: AppColors.red, width: 1),
+                          borderSide: const BorderSide(
+                            color: AppColors.red,
+                            width: 1,
+                          ),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                          borderSide: const BorderSide(
+                            color: AppColors.red,
+                            width: 1.5,
+                          ),
                         ),
                       ),
                       validator: (value) {
@@ -275,37 +324,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 24),
 
                     // Login Button
-                    SizedBox(
-                      height: 46,
-                      child: ElevatedButton(
-                        onPressed: _isLoading ? null : _handleLogin,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          foregroundColor: AppColors.white,
-                          disabledBackgroundColor: AppColors.primary.withOpacity(0.6),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: _isLoading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                ),
-                              )
-                            : Text(
-                                "sign_in".tr(),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                      ),
+                    CustomButton(
+                      title: "sign_in".tr(),
+                      onTap: _handleLogin,
+                      isLoading: _isLoading,
                     ),
                   ],
                 ),

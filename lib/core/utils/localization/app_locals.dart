@@ -6,16 +6,16 @@ import 'package:new_strucuture/core/preferences/flutter_secure_storage.dart';
 import 'package:one_context/one_context.dart';
 
 class AppLocals {
-  toggleLocal({
+  Future<void> toggleLocal({
     required BuildContext context,
     required Locale locale,
-  }) {
+  }) async {
     if (context.locale != locale) {
-      context.setLocale(locale).then((value) {
-        log('${locale.languageCode} SSSSSS');
-        MySecureStorage.setLanguage(locale.languageCode);
-        return OneNotification.hardReloadRoot(context);
-      });
+      await context.setLocale(locale);
+      await MySecureStorage.setLanguage(locale.languageCode);
+      log('${locale.languageCode} SSSSSS');
+      if (!context.mounted) return;
+      OneNotification.hardReloadRoot(context);
     }
   }
 }

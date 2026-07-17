@@ -6,8 +6,8 @@ class HotRestartController extends StatefulWidget {
   const HotRestartController({super.key, required this.child});
 
   static void performHotRestart(BuildContext context) {
-    final _HotRestartControllerState? state =
-        context.findAncestorStateOfType<_HotRestartControllerState>();
+    final _HotRestartControllerState? state = context
+        .findAncestorStateOfType<_HotRestartControllerState>();
     if (state != null) {
       state.performHotRestart();
     } else {
@@ -16,7 +16,7 @@ class HotRestartController extends StatefulWidget {
   }
 
   @override
-  _HotRestartControllerState createState() => _HotRestartControllerState();
+  State<HotRestartController> createState() => _HotRestartControllerState();
 }
 
 class _HotRestartControllerState extends State<HotRestartController> {
@@ -36,9 +36,6 @@ class _HotRestartControllerState extends State<HotRestartController> {
 
   @override
   Widget build(BuildContext context) {
-    return KeyedSubtree(
-      key: _currentKey,
-      child: widget.child,
-    );
+    return KeyedSubtree(key: _currentKey, child: widget.child);
   }
 }

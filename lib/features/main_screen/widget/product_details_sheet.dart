@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/core/exports.dart';
@@ -8,10 +7,7 @@ import '../data/model/product_model.dart';
 class ProductDetailsSheet extends StatelessWidget {
   final ProductModel product;
 
-  const ProductDetailsSheet({
-    super.key,
-    required this.product,
-  });
+  const ProductDetailsSheet({super.key, required this.product});
 
   String categoryKey(String cat) {
     if (cat.toLowerCase() == 'all') return 'all';
@@ -84,7 +80,7 @@ class ProductDetailsSheet extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: AppColors.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -101,9 +97,14 @@ class ProductDetailsSheet extends StatelessWidget {
                   top: 16,
                   right: 16,
                   child: CircleAvatar(
-                    backgroundColor: isDark ? const Color(0xFF223048) : Colors.white.withOpacity(0.9),
+                    backgroundColor: isDark
+                        ? const Color(0xFF223048)
+                        : Colors.white.withValues(alpha: 0.9),
                     child: IconButton(
-                      icon: Icon(Icons.close, color: isDark ? Colors.white : AppColors.black),
+                      icon: Icon(
+                        Icons.close,
+                        color: isDark ? Colors.white : AppColors.black,
+                      ),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ),

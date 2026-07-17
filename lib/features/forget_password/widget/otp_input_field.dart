@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
@@ -6,10 +5,7 @@ import 'package:new_strucuture/config/themes/theme_helper.dart';
 class OtpInputField extends StatefulWidget {
   final ValueChanged<String> onCompleted;
 
-  const OtpInputField({
-    super.key,
-    required this.onCompleted,
-  });
+  const OtpInputField({super.key, required this.onCompleted});
 
   @override
   State<OtpInputField> createState() => _OtpInputFieldState();
@@ -17,10 +13,14 @@ class OtpInputField extends StatefulWidget {
 
 class _OtpInputFieldState extends State<OtpInputField> {
   final List<FocusNode> _focusNodes = List.generate(4, (index) => FocusNode());
-  final List<FocusNode> _keyboardFocusNodes =
-      List.generate(4, (index) => FocusNode());
-  final List<TextEditingController> _controllers =
-      List.generate(4, (index) => TextEditingController());
+  final List<FocusNode> _keyboardFocusNodes = List.generate(
+    4,
+    (index) => FocusNode(),
+  );
+  final List<TextEditingController> _controllers = List.generate(
+    4,
+    (index) => TextEditingController(),
+  );
 
   @override
   void dispose() {
@@ -67,13 +67,10 @@ class _OtpInputFieldState extends State<OtpInputField> {
           decoration: BoxDecoration(
             color: colors.surface,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: colors.borderColor,
-              width: 1.5,
-            ),
+            border: Border.all(color: colors.borderColor, width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.01),
+                color: Colors.black.withValues(alpha: 0.01),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),

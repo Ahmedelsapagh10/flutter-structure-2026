@@ -1,12 +1,10 @@
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:lottie/lottie.dart';
 import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/core/preferences/flutter_secure_storage.dart';
-import 'package:new_strucuture/core/utils/app_colors.dart';
 import 'package:new_strucuture/core/utils/extentions.dart';
 
 class AppConstance {
@@ -95,14 +93,15 @@ class AppConstance {
         : "Network error";
   }
 
-  showErrorToast(
+  void showErrorToast(
     BuildContext context, {
     required String msg,
     int duration = 3,
   }) {
     CherryToast.error(
-      textDirection:
-          context.isCurrentLanguageAr() ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: context.isCurrentLanguageAr()
+          ? TextDirection.rtl
+          : TextDirection.ltr,
       animationType: AnimationType.fromTop,
       toastDuration: Duration(seconds: duration),
       animationDuration: const Duration(milliseconds: 500),
@@ -114,10 +113,15 @@ class AppConstance {
     ).show(context);
   }
 
-  showInfoToast(BuildContext context, {required String msg, int duration = 3}) {
+  void showInfoToast(
+    BuildContext context, {
+    required String msg,
+    int duration = 3,
+  }) {
     CherryToast.info(
-      textDirection:
-          context.isCurrentLanguageAr() ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: context.isCurrentLanguageAr()
+          ? TextDirection.rtl
+          : TextDirection.ltr,
       animationType: AnimationType.fromTop,
       toastDuration: Duration(seconds: duration),
       animationDuration: const Duration(milliseconds: 500),
@@ -129,14 +133,15 @@ class AppConstance {
     ).show(context);
   }
 
-  showSuccesToast(
+  void showSuccesToast(
     BuildContext context, {
     required String msg,
     int duration = 3,
   }) {
     CherryToast.success(
-      textDirection:
-          context.isCurrentLanguageAr() ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: context.isCurrentLanguageAr()
+          ? TextDirection.rtl
+          : TextDirection.ltr,
       animationType: AnimationType.fromTop,
       toastDuration: Duration(seconds: duration),
       animationDuration: const Duration(milliseconds: 500),
@@ -148,7 +153,7 @@ class AppConstance {
     ).show(context);
   }
 
-  static showLoading(
+  static void showLoading(
     BuildContext context, {
     Widget? progressIndicator,
     String msg = '',

@@ -28,7 +28,7 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
       data: ThemeData(),
       child: DropdownButtonFormField<T>(
         icon: Container(),
-        value: value,
+        initialValue: value,
         decoration: InputDecoration(
           hintText: 'choose'.tr(),
           contentPadding: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 4),
@@ -45,10 +45,7 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(10.r)),
           ),
           alignLabelWithHint: true,
-          hintStyle: TextStyle(
-            color: AppColors.grey,
-            fontSize: 18.sp,
-          ),
+          hintStyle: TextStyle(color: AppColors.grey, fontSize: 18.sp),
           suffixIcon: Padding(
             padding: EdgeInsets.only(right: 8.w),
             child: Icon(Icons.arrow_drop_down, color: AppColors.black),
@@ -62,9 +59,7 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
               itemBuilder(item),
               maxLines: 1,
               // Use the itemBuilder to display the item
-              style: TextStyle(
-                color: AppColors.black,
-              ),
+              style: TextStyle(color: AppColors.black),
             ),
           );
         }).toList(),

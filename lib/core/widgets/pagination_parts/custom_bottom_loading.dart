@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_strucuture/core/utils/app_colors.dart';
 import 'package:new_strucuture/core/utils/app_constants.dart';
-import 'package:new_strucuture/core/utils/app_strings.dart';
 import 'package:new_strucuture/core/utils/app_translation.dart';
 
 class CustomBottomLoading extends StatelessWidget {
@@ -21,41 +20,39 @@ class CustomBottomLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isPaginationLoading
-        ? Container(
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppConstance().customLoading(),
-                  const SizedBox(height: AppConstance.vPaddingTiny),
-                  Text(
-                    AppTranslation().loadingMore,
-                    style: TextStyle(color: AppColors.grey, fontSize: 12),
-                  ),
-                  SizedBox(height: bottomPadding),
-                ],
-              ),
+        ? Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AppConstance().customLoading(),
+                const SizedBox(height: AppConstance.vPaddingTiny),
+                Text(
+                  AppTranslation().loadingMore,
+                  style: TextStyle(color: AppColors.grey, fontSize: 12),
+                ),
+                SizedBox(height: bottomPadding),
+              ],
             ),
           )
         : isPaginationFailed
-            ? Padding(
-                padding: const EdgeInsets.only(bottom: 10, top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        onReLoading();
-                      },
-                      icon: const Icon(Icons.refresh),
-                    ),
-                    Text(
-                      AppTranslation().refresh,
-                      style: TextStyle(color: AppColors.grey, fontSize: 12),
-                    ),
-                  ],
+        ? Padding(
+            padding: const EdgeInsets.only(bottom: 10, top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    onReLoading();
+                  },
+                  icon: const Icon(Icons.refresh),
                 ),
-              )
-            : const SizedBox.shrink();
+                Text(
+                  AppTranslation().refresh,
+                  style: TextStyle(color: AppColors.grey, fontSize: 12),
+                ),
+              ],
+            ),
+          )
+        : const SizedBox.shrink();
   }
 }

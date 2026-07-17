@@ -5,8 +5,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import '../../config/routes/app_routes.dart';
-import '../../features/login/data/model/login_model.dart';
 import '../exports.dart';
 import '../preferences/preferences.dart';
 import '../init_config/initalization_config.dart';
@@ -40,7 +38,9 @@ class NotificationService {
     if (isFirebaseInitialized) {
       await _initializeFirebaseMessaging();
     } else {
-      log("Skipping Firebase Messaging initialization as Firebase is not configured.");
+      log(
+        "Skipping Firebase Messaging initialization as Firebase is not configured.",
+      );
     }
     await _initializeLocalNotifications();
   }
@@ -86,12 +86,12 @@ class NotificationService {
       badge: true,
       sound: true,
     );
-    print('User granted permission: ${settings.authorizationStatus}');
+    log('User granted permission: ${settings.authorizationStatus}');
 
-//! [Forground ]
+    //! [Forground ]
     FirebaseMessaging.onMessage.listen((message) {
-      print("Foreground Message Received: ${message.notification?.title}");
-      print("Message Data: ${message.data}");
+      log("Foreground Message Received: ${message.notification?.title}");
+      log("Message Data: ${message.data}");
 
       /// Check if the message is from a chat room
       final roomId = message.data['modal_id']?.toString();
@@ -116,10 +116,11 @@ class NotificationService {
 
   /// **Handles Background Notifications**
   static Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
+    RemoteMessage message,
+  ) async {
     initialMessageRcieved = message;
     isWithNotification = true;
-    print("Background Message Received: ${message.notification?.title}");
+    log("Background Message Received: ${message.notification?.title}");
   }
 
   /// **Fetches and Stores FCM Token**
@@ -148,10 +149,10 @@ class NotificationService {
 
     final DarwinInitializationSettings iosSettings =
         DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
+          requestAlertPermission: true,
+          requestBadgePermission: true,
+          requestSoundPermission: true,
+        );
 
     final InitializationSettings initSettings = InitializationSettings(
       android: androidSettings,
@@ -201,14 +202,16 @@ class NotificationService {
     if (!kIsWeb && Platform.isAndroid) {
       await _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
+            AndroidFlutterLocalNotificationsPlugin
+          >()
           ?.requestNotificationsPermission();
     }
 
     if (!kIsWeb && Platform.isIOS) {
       await _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>()
+            IOSFlutterLocalNotificationsPlugin
+          >()
           ?.requestPermissions(alert: true, badge: true, sound: true);
     }
   }
@@ -221,17 +224,18 @@ class NotificationService {
   }) async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
-      'your_channel_id_ataaby',
-      'your_channel_name_ataaby',
-      channelDescription: 'your_channel_description_ataaby',
-      importance: Importance.max,
-      priority: Priority.high,
-      icon: '@mipmap/ic_launcher',
-      ticker: 'ticker',
-    );
+          'your_channel_id_ataaby',
+          'your_channel_name_ataaby',
+          channelDescription: 'your_channel_description_ataaby',
+          importance: Importance.max,
+          priority: Priority.high,
+          icon: '@mipmap/ic_launcher',
+          ticker: 'ticker',
+        );
 
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidDetails);
+    const NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetails,
+    );
 
     await _flutterLocalNotificationsPlugin.show(
       id: _notificationCounter++,

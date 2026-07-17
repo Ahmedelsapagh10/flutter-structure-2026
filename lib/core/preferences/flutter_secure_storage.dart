@@ -48,6 +48,7 @@ class MySecureStorage {
     await _secureStorage.delete(key: nationalId);
     await _secureStorage.delete(key: isDark);
     // HiveHelper().clearAllData();
+    if (!context.mounted) return;
     try {
       context.toAndRemoveAll(const SplashScreen());
     } catch (e) {
@@ -231,7 +232,7 @@ class MySecureStorage {
     );
   }
 
-  clearSecureStorageOnReinstall() async {
+  Future<void> clearSecureStorageOnReinstall() async {
     String key = 'hasRunBefore';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? hasRunBefore = prefs.getBool(key);

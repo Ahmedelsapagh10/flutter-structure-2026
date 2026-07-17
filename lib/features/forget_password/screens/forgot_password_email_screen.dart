@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
@@ -13,7 +11,8 @@ class ForgotPasswordEmailScreen extends StatefulWidget {
   const ForgotPasswordEmailScreen({super.key});
 
   @override
-  State<ForgotPasswordEmailScreen> createState() => _ForgotPasswordEmailScreenState();
+  State<ForgotPasswordEmailScreen> createState() =>
+      _ForgotPasswordEmailScreenState();
 }
 
 class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
@@ -32,11 +31,12 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      final value = _isPhoneNumber ? _completePhoneNumber.trim() : _emailController.text.trim();
+      final value = _isPhoneNumber
+          ? _completePhoneNumber.trim()
+          : _emailController.text.trim();
       context.read<ForgetPasswordCubit>().sendCode(value);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                     border: Border.all(color: cardBorder, width: 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: Colors.black.withValues(alpha: 0.04),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -122,7 +122,9 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                         Center(
                           child: CircleAvatar(
                             radius: 36,
-                            backgroundColor: AppColors.primary.withOpacity(0.1),
+                            backgroundColor: AppColors.primary.withValues(
+                              alpha: 0.1,
+                            ),
                             child: const Icon(
                               Icons.lock_reset_rounded,
                               size: 40,
@@ -166,7 +168,9 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                                   });
                                 },
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                  ),
                                   decoration: BoxDecoration(
                                     border: Border(
                                       bottom: BorderSide(
@@ -199,7 +203,9 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                                   });
                                 },
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                  ),
                                   decoration: BoxDecoration(
                                     border: Border(
                                       bottom: BorderSide(
@@ -245,26 +251,48 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                             style: TextStyle(fontSize: 14, color: textColor),
                             decoration: InputDecoration(
                               hintText: "enter_email".tr(),
-                              hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
-                              prefixIcon: const Icon(Icons.email_outlined, size: 20, color: AppColors.greya8),
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 13,
+                                color: AppColors.greya8,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.email_outlined,
+                                size: 20,
+                                color: AppColors.greya8,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
+                              ),
                               filled: true,
                               fillColor: fieldBg,
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide(color: fieldBorder, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                  color: fieldBorder,
+                                  width: 1,
+                                ),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: AppColors.primary,
+                                  width: 1.5,
+                                ),
                               ),
                               errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(color: AppColors.red, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 1,
+                                ),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 1.5,
+                                ),
                               ),
                             ),
                             validator: (value) {
@@ -293,41 +321,70 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                             enabled: !isLoading,
                             keyboardType: TextInputType.phone,
                             style: TextStyle(fontSize: 14, color: textColor),
-                            dropdownTextStyle: TextStyle(fontSize: 14, color: textColor),
+                            dropdownTextStyle: TextStyle(
+                              fontSize: 14,
+                              color: textColor,
+                            ),
                             initialCountryCode: 'EG',
                             disableLengthCheck: true,
                             decoration: InputDecoration(
                               hintText: "Enter your phone number",
-                              hintStyle: const TextStyle(fontSize: 13, color: AppColors.greya8),
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 13,
+                                color: AppColors.greya8,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
+                              ),
                               filled: true,
                               fillColor: fieldBg,
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide(color: fieldBorder, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                  color: fieldBorder,
+                                  width: 1,
+                                ),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: AppColors.primary,
+                                  width: 1.5,
+                                ),
                               ),
                               errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(color: AppColors.red, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 1,
+                                ),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 1.5,
+                                ),
                               ),
                             ),
                             validator: (phone) {
-                              if (phone == null || phone.number.trim().isEmpty) {
+                              if (phone == null ||
+                                  phone.number.trim().isEmpty) {
                                 return "Phone number is required";
                               }
                               final number = phone.number.trim();
                               if (phone.countryISOCode == 'EG') {
                                 final hasLeadingZero = number.startsWith('0');
-                                final checkNumber = hasLeadingZero ? number : '0$number';
-                                final validPrefixes = ['010', '011', '012', '015'];
+                                final checkNumber = hasLeadingZero
+                                    ? number
+                                    : '0$number';
+                                final validPrefixes = [
+                                  '010',
+                                  '011',
+                                  '012',
+                                  '015',
+                                ];
                                 bool isValidPrefix = false;
                                 for (var prefix in validPrefixes) {
                                   if (checkNumber.startsWith(prefix)) {
@@ -356,7 +413,6 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                         ],
                         const SizedBox(height: 24),
 
-
                         // Submit Button
                         SizedBox(
                           height: 48,
@@ -365,7 +421,8 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
                               foregroundColor: Colors.white,
-                              disabledBackgroundColor: AppColors.primary.withOpacity(0.6),
+                              disabledBackgroundColor: AppColors.primary
+                                  .withValues(alpha: 0.6),
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),

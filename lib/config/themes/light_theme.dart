@@ -37,7 +37,7 @@ class LightTheme {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConstance.radiusTiny),
         side: BorderSide(
-          color: AppColorsExtension.light.borderColor.withOpacity(0.3),
+          color: AppColorsExtension.light.borderColor.withValues(alpha: 0.3),
         ),
       ),
     ),
@@ -53,7 +53,7 @@ class LightTheme {
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppConstance.radiusTiny),
         borderSide: BorderSide(
-          color: AppColorsExtension.light.borderColor.withOpacity(0.3),
+          color: AppColorsExtension.light.borderColor.withValues(alpha: 0.3),
         ),
       ),
       focusedBorder: OutlineInputBorder(

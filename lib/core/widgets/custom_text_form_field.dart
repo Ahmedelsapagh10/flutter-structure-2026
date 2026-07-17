@@ -65,95 +65,107 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 8),
         child: TextFormField(
-            enabled: widget.enabled,
-            controller: widget.controller,
-            expands: false,
-            onTap: widget.onTap,
-            onTapOutside: (event) {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            focusNode: myFocusNode,
-            style: getBoldStyle(),
-            onChanged: widget.onChanged,
-            validator: widget.validator,
-            keyboardType: widget.keyboardType,
-            maxLines: widget.isMessage ? 5 : 1,
-            minLines: widget.isMessage ? 5 : 1,
-            onFieldSubmitted: widget.onSubmitted,
-            initialValue: widget.initialValue,
-            obscureText: widget.isPassword ? !showPassword : false,
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: widget.enabled!
-                    ? AppColors.white
-                    : AppColors.gray.withOpacity(0.5),
-                labelText: widget.labelText,
-                labelStyle: getRegularStyle(
-                    fontHeight: 1.5,
-                    color: myFocusNode.hasFocus
-                        ? AppColors.primary
-                        : AppColors.gray),
-                prefixIcon: widget.prefixIcon,
-                prefixIconColor:
-                    myFocusNode.hasFocus ? AppColors.primary : AppColors.gray,
-                suffixIconColor:
-                    myFocusNode.hasFocus ? AppColors.primary : AppColors.gray,
-                suffixIcon: widget.isPassword
-                    ? showPassword
-                        ? IconButton(
-                            icon: Icon(
-                              widget.isPassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: AppColors.primary,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                showPassword = !showPassword;
-                              });
-                            },
-                          )
-                        : IconButton(
-                            icon: Icon(
-                              !widget.isPassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: AppColors.primary,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                showPassword = !showPassword;
-                              });
-                            })
-                    : widget.suffixIcon,
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 8, vertical: 18.h),
-                hintStyle: getRegularStyle(color: AppColors.gray, fontSize: 14),
-                errorStyle: getRegularStyle(color: AppColors.red),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.gray, width: 1.5),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(widget.borderRadius ?? 10.r))),
-                disabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.gray, width: 1.5),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(widget.borderRadius ?? 10.r))),
-                // focused border style
-                focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: AppColors.primary, width: 1.5),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(widget.borderRadius ?? 10.r))),
+          enabled: widget.enabled,
+          controller: widget.controller,
+          expands: false,
+          onTap: widget.onTap,
+          onTapOutside: (event) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          focusNode: myFocusNode,
+          style: getBoldStyle(),
+          onChanged: widget.onChanged,
+          validator: widget.validator,
+          keyboardType: widget.keyboardType,
+          maxLines: widget.isMessage ? 5 : 1,
+          minLines: widget.isMessage ? 5 : 1,
+          onFieldSubmitted: widget.onSubmitted,
+          initialValue: widget.initialValue,
+          obscureText: widget.isPassword ? !showPassword : false,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: widget.enabled!
+                ? AppColors.white
+                : AppColors.gray.withValues(alpha: 0.5),
+            labelText: widget.labelText,
+            labelStyle: getRegularStyle(
+              fontHeight: 1.5,
+              color: myFocusNode.hasFocus ? AppColors.primary : AppColors.gray,
+            ),
+            prefixIcon: widget.prefixIcon,
+            prefixIconColor: myFocusNode.hasFocus
+                ? AppColors.primary
+                : AppColors.gray,
+            suffixIconColor: myFocusNode.hasFocus
+                ? AppColors.primary
+                : AppColors.gray,
+            suffixIcon: widget.isPassword
+                ? showPassword
+                      ? IconButton(
+                          icon: Icon(
+                            widget.isPassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: AppColors.primary,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              showPassword = !showPassword;
+                            });
+                          },
+                        )
+                      : IconButton(
+                          icon: Icon(
+                            !widget.isPassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: AppColors.primary,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              showPassword = !showPassword;
+                            });
+                          },
+                        )
+                : widget.suffixIcon,
+            contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 18.h),
+            hintStyle: getRegularStyle(color: AppColors.gray, fontSize: 14),
+            errorStyle: getRegularStyle(color: AppColors.red),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.gray, width: 1.5),
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius ?? 10.r),
+              ),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.gray, width: 1.5),
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius ?? 10.r),
+              ),
+            ),
+            // focused border style
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius ?? 10.r),
+              ),
+            ),
 
-                // error border style
-                errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.red, width: 1.5),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(widget.borderRadius ?? 10.r))),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.red, width: 1.5),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(widget.borderRadius ?? 10.r))))),
+            // error border style
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.red, width: 1.5),
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius ?? 10.r),
+              ),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.red, width: 1.5),
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius ?? 10.r),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

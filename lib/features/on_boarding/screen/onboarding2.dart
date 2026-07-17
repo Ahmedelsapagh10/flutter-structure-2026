@@ -12,17 +12,11 @@ class OnBoarding3 extends StatelessWidget {
     return BlocConsumer<OnboardingCubit, OnboardingState>(
       listener: (context, state) {},
       builder: (context, state) {
-        OnboardingCubit cubit = context.read<OnboardingCubit>();
         return Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            actions: [],
-          ),
+          appBar: AppBar(elevation: 0, actions: []),
           body: Column(
             children: [
-              SizedBox(
-                height: getWidthSize(context) / 22,
-              ),
+              SizedBox(height: getWidthSize(context) / 22),
               Flexible(
                 fit: FlexFit.tight,
                 child: Padding(
@@ -36,12 +30,11 @@ class OnBoarding3 extends StatelessWidget {
                 ),
               ),
               SizedBox(height: getWidthSize(context) / 12),
-              Container(
-                child: Text(
-                  'مبيعاتك أسهل وأكثر كفاءة',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: getWidthSize(context) / 18),
+              Text(
+                'مبيعاتك أسهل وأكثر كفاءة',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: getWidthSize(context) / 18,
                 ),
               ),
               Container(
@@ -50,8 +43,9 @@ class OnBoarding3 extends StatelessWidget {
                   'حقق أهدافك البيعية بفضل إدارة متقدمة للعمليات والمزيد من التحكم في كل خطوة.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: getWidthSize(context) / 22),
+                    fontWeight: FontWeight.w600,
+                    fontSize: getWidthSize(context) / 22,
+                  ),
                 ),
               ),
               SizedBox(height: getWidthSize(context) / 12),

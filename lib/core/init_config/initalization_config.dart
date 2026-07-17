@@ -15,7 +15,7 @@ bool isFirebaseInitialized = false;
 
 Future<void> initializationClass() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   bool isFirebaseConfigured = false;
   try {
     final options = DefaultFirebaseOptions.currentPlatform;
@@ -23,26 +23,27 @@ Future<void> initializationClass() async {
       isFirebaseConfigured = true;
     }
   } catch (e) {
-    print("Firebase options are not fully configured: $e");
+    debugPrint("Firebase options are not fully configured: $e");
   }
 
   if (isFirebaseConfigured) {
     try {
-      await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
       isFirebaseInitialized = true;
     } catch (e) {
-      print("Error initializing Firebase: $e");
+      debugPrint("Error initializing Firebase: $e");
     }
   } else {
-    print("Firebase is not configured or setup. Skipping initialization.");
+    debugPrint("Firebase is not configured or setup. Skipping initialization.");
   }
 
   NotificationService notificationService = NotificationService();
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
 
-  AndroidOptions getAndroidOptions() =>
-      const AndroidOptions(encryptedSharedPreferences: true);
+  AndroidOptions getAndroidOptions() => const AndroidOptions();
   IOSOptions getIOSOptions() =>
       const IOSOptions(accessibility: KeychainAccessibility.first_unlock);
 
@@ -51,7 +52,9 @@ Future<void> initializationClass() async {
   await ConnectivityHandler().checkConnection();
 
   secureStorage = FlutterSecureStorage(
-      aOptions: getAndroidOptions(), iOptions: getIOSOptions());
+    aOptions: getAndroidOptions(),
+    iOptions: getIOSOptions(),
+  );
   await notificationService.initialize();
 
   await injector.setupDependencyInjection();

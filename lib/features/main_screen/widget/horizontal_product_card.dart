@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
@@ -33,7 +32,7 @@ class HorizontalProductCard extends StatelessWidget {
           border: Border.all(color: borderColor, width: 1),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.01),
+              color: Colors.black.withValues(alpha: 0.01),
               blurRadius: 6,
               offset: const Offset(0, 3),
             ),
@@ -49,7 +48,9 @@ class HorizontalProductCard extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: cardBg,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(12),
+                  ),
                 ),
                 child: Center(
                   child: CachedNetworkImage(
@@ -76,9 +77,7 @@ class HorizontalProductCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(
                     bottom: Radius.circular(12),
                   ),
-                  border: Border(
-                    top: BorderSide(color: borderColor, width: 1),
-                  ),
+                  border: Border(top: BorderSide(color: borderColor, width: 1)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

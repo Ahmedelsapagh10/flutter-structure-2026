@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
@@ -117,7 +115,7 @@ class _ForgotPasswordResetScreenState extends State<ForgotPasswordResetScreen> {
                     border: Border.all(color: cardBorder, width: 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: Colors.black.withValues(alpha: 0.04),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -134,7 +132,9 @@ class _ForgotPasswordResetScreenState extends State<ForgotPasswordResetScreen> {
                         Center(
                           child: CircleAvatar(
                             radius: 36,
-                            backgroundColor: AppColors.primary.withOpacity(0.1),
+                            backgroundColor: AppColors.primary.withValues(
+                              alpha: 0.1,
+                            ),
                             child: const Icon(
                               Icons.verified_user_outlined,
                               size: 40,
@@ -347,7 +347,7 @@ class _ForgotPasswordResetScreenState extends State<ForgotPasswordResetScreen> {
                               backgroundColor: AppColors.primary,
                               foregroundColor: Colors.white,
                               disabledBackgroundColor: AppColors.primary
-                                  .withOpacity(0.6),
+                                  .withValues(alpha: 0.6),
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),

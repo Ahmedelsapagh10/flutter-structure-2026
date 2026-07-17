@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:new_strucuture/core/exports.dart';
@@ -41,7 +40,7 @@ class StaggeredProductCard extends StatelessWidget {
           border: Border.all(color: borderColor, width: 1),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.01),
+              color: Colors.black.withValues(alpha: 0.01),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
@@ -88,9 +87,7 @@ class StaggeredProductCard extends StatelessWidget {
                 borderRadius: const BorderRadius.vertical(
                   bottom: Radius.circular(12),
                 ),
-                border: Border(
-                  top: BorderSide(color: borderColor, width: 1),
-                ),
+                border: Border(top: BorderSide(color: borderColor, width: 1)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -39,7 +39,7 @@ class DarkTheme {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConstance.radiusTiny),
         side: BorderSide(
-          color: AppColorsExtension.dark.borderColor.withOpacity(0.3),
+          color: AppColorsExtension.dark.borderColor.withValues(alpha: 0.3),
         ),
       ),
     ),
@@ -55,7 +55,7 @@ class DarkTheme {
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppConstance.radiusTiny),
         borderSide: BorderSide(
-          color: AppColorsExtension.dark.borderColor.withOpacity(0.3),
+          color: AppColorsExtension.dark.borderColor.withValues(alpha: 0.3),
         ),
       ),
       focusedBorder: OutlineInputBorder(
