@@ -41,7 +41,10 @@ class _SplashScreenState extends State<SplashScreen>
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getBool('onBoarding') == true) {
-      //   if (prefs.getString('user') != null) {
+      //! un comment this case u make user mode
+      //! and store it in locl and want use it
+      //!  to check user make login before or not
+      //  if (prefs.getString('user') != null) {
       //     Navigator.pushReplacementNamed(context, Routes.mainRoute);
       //   } else {
       Navigator.pushNamedAndRemoveUntil(
