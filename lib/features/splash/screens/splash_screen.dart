@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:new_strucuture/core/utils/assets_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -38,27 +39,20 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> _getStoreUser() async {
     Navigator.pushReplacementNamed(context, Routes.loginRoute);
 
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // if (prefs.getString('onBoarding') != null) {
-    //   if (prefs.getString('user') != null) {
-    //     Navigator.pushReplacementNamed(context, Routes.mainRoute);
-    //   } else {
-    //     Navigator.pushNamedAndRemoveUntil(
-    //       context,
-    //       Routes.loginRoute,
-    //       ModalRoute.withName(
-    //         Routes.initialRoute,
-    //       ),
-    //     );
-    //   }
-    // } else {
-    //   Navigator.pushReplacementNamed(
-    //     context,
-    //     Routes.initialRoute,
-
-    //     ///onBprading
-    //   );
-    // }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('onBoarding') == true) {
+      //   if (prefs.getString('user') != null) {
+      //     Navigator.pushReplacementNamed(context, Routes.mainRoute);
+      //   } else {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        Routes.loginRoute,
+        ModalRoute.withName(Routes.initialRoute),
+      );
+      //   }
+    } else {
+      Navigator.pushReplacementNamed(context, Routes.onboardingPageScreenRoute);
+    }
   }
 
   @override

@@ -52,5 +52,17 @@
   "passwords_do_not_match": "Passwords do not match",
   "reset_password_button": "Reset Password",
   "password_reset_success": "Password has been reset successfully!",
-  "resend_code": "Resend Code"
+  "resend_code": "Resend Code",
+  "next": "Continue",
+  "skip": "Skip",
+  "start_now": "Get Started",
+  "onboarding_label": "Step {current} of {total}",
+  "onboarding_one_eyebrow": "START FASTER",
+  "onboarding_one_title": "A stronger start for every Flutter project",
+  "onboarding_one_description": "Begin with a thoughtfully organized foundation that removes repetitive setup and keeps your focus on building real product value.",
+  "onboarding_two_eyebrow": "READY TO SCALE",
+  "onboarding_two_title": "A clear architecture your team can trust",
+  "onboarding_two_description": "Features, state, networking, storage, localization, and themes follow one consistent pattern that stays easy to understand and maintain.",
+  "onboarding_three_title": "Ready for your idea—and ready to grow",
+  "onboarding_three_description": "Customize the structure, connect your services, and ship confidently with a foundation designed to evolve alongside your application."
 }

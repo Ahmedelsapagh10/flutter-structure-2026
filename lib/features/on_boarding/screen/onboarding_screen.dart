@@ -1,185 +1,159 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:easy_localization/easy_localization.dart' as trans;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
-import '../../../core/utils/get_size.dart';
 import '../cubit/onboarding_cubit.dart';
 import 'onboarding1.dart';
 import 'onboarding2.dart';
 
-class OnBoardinScreen extends StatefulWidget {
-  const OnBoardinScreen({super.key});
+class OnBoardingScreen extends StatefulWidget {
+  const OnBoardingScreen({super.key});
 
   @override
-  State<OnBoardinScreen> createState() => _OnBoardinScreenState();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardinScreenState extends State<OnBoardinScreen> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  Future<void> _finishOnboarding() async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setBool('HomeState', true);
+    await preferences.setBool('onBoarding', true);
+
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<OnboardingCubit, OnboardingState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        OnboardingCubit cubit = context.read<OnboardingCubit>();
-        return OrientationBuilder(
-          builder: (context, orientation) {
-            return Scaffold(
-              backgroundColor: Colors.white,
-              body: Column(
-                children: [
-                  Flexible(
-                    child: PageView(
-                      controller: cubit.pageController,
-                      reverse: true,
-                      onPageChanged: (int page) {
-                        cubit.onPageChanged(page);
-                      },
-                      children: const [
-                        OnBoarding1(),
-                        OnBoarding3(),
-                      ],
+    return BlocProvider(
+      create: (_) => OnboardingCubit(),
+      child: BlocBuilder<OnboardingCubit, OnboardingState>(
+        builder: (context, state) {
+          final cubit = context.read<OnboardingCubit>();
+          final currentPage = cubit.currentPage.toInt();
+          final isLastPage = currentPage == cubit.numPages - 1;
+
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: Stack(
+              children: [
+                Column(
+                  children: [
+                    Expanded(
+                      child: PageView(
+                        controller: cubit.pageController,
+                        onPageChanged: cubit.onPageChanged,
+                        children: const [
+                          OnBoarding1(),
+                          OnBoarding2(),
+                          OnBoarding3(),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: getWidthSize(context) / 12),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: getWidthSize(context) / 16),
-                    child: SmoothPageIndicator(
-                      controller: cubit.pageController,
-                      count: cubit.numPages,
-                      textDirection: TextDirection.ltr,
-                      effect: WormEffect(
-                        activeDotColor: AppColors.primary,
-                        dotColor: AppColors.gray,
-                        dotHeight: getWidthSize(context) / 44,
-                        dotWidth: getWidthSize(context) / 44,
-                        type: WormType.underground,
+                    SafeArea(
+                      top: false,
+                      minimum: const EdgeInsets.fromLTRB(24, 10, 24, 18),
+                      child: Column(
+                        children: [
+                          SmoothPageIndicator(
+                            controller: cubit.pageController,
+                            count: cubit.numPages,
+                            effect: const ExpandingDotsEffect(
+                              activeDotColor: AppColors.primary,
+                              dotColor: Color(0xFFDCE3ED),
+                              dotHeight: 7,
+                              dotWidth: 7,
+                              expansionFactor: 3.5,
+                              spacing: 6,
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 56,
+                            child: FilledButton(
+                              onPressed: () {
+                                if (isLastPage) {
+                                  _finishOnboarding();
+                                  return;
+                                }
+
+                                cubit.pageController.nextPage(
+                                  duration: const Duration(milliseconds: 420),
+                                  curve: Curves.easeOutCubic,
+                                );
+                              },
+                              style: FilledButton.styleFrom(
+                                backgroundColor: AppColors.primary,
+                                foregroundColor: Colors.white,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              child: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 220),
+                                child: Text(
+                                  (isLastPage ? 'start_now' : 'next').tr(),
+                                  key: ValueKey(isLastPage),
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                PositionedDirectional(
+                  top: 0,
+                  end: 0,
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        top: 10,
+                        end: 16,
+                      ),
+                      child: TextButton(
+                        onPressed: _finishOnboarding,
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.black.withValues(alpha: 0.28),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(
+                              color: Colors.white.withValues(alpha: 0.25),
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          'skip'.tr(),
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  cubit.currentPage == 0
-                      ? Column(
-                          children: [
-                            MaterialButton(
-                                minWidth: getWidthSize(context) / 1.2,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        getWidthSize(context) / 8)),
-                                color: AppColors.primary,
-                                onPressed: () {
-                                  cubit.pageController.animateToPage(1,
-                                      duration:
-                                          const Duration(milliseconds: 1000),
-                                      curve: Curves.easeInOut);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: getWidthSize(context) / 44,
-                                      horizontal: getWidthSize(context) / 44),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getWidthSize(context) / 100,
-                                      horizontal: getWidthSize(context) / 32),
-                                  decoration: BoxDecoration(
-                                      // color: AppColors.primary,
-                                      borderRadius: BorderRadius.circular(
-                                          getWidthSize(context) / 44)),
-                                  child: Text(
-                                    trans.tr('next'),
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: getWidthSize(context) / 22),
-                                  ),
-                                )),
-                            InkWell(
-                                onTap: () async {
-                                  Navigator.pushReplacementNamed(
-                                      context, Routes.loginRoute);
-                                  SharedPreferences pref =
-                                      await SharedPreferences.getInstance();
-                                  pref.setBool('onBoarding', true);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: getWidthSize(context) / 44,
-                                      horizontal: getWidthSize(context) / 44),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getWidthSize(context) / 100,
-                                      horizontal: getWidthSize(context) / 32),
-                                  decoration: BoxDecoration(
-                                      // color: AppColors.primary,
-                                      borderRadius: BorderRadius.circular(
-                                          getWidthSize(context) / 44)),
-                                  child: Text(
-                                    trans.tr('skip'),
-                                    style: TextStyle(
-                                        color: AppColors.primary,
-                                        fontSize: getWidthSize(context) / 22),
-                                  ),
-                                )),
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            MaterialButton(
-                                minWidth: getWidthSize(context) / 1.2,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        getWidthSize(context) / 8)),
-                                color: AppColors.primary,
-                                onPressed: () async {
-                                  Navigator.pushReplacementNamed(
-                                      context, Routes.loginRoute);
-                                  SharedPreferences pref =
-                                      await SharedPreferences.getInstance();
-                                  pref.setBool('HomeState', true);
-
-                                  pref.setBool('onBoarding', true);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: getWidthSize(context) / 44,
-                                      horizontal: getWidthSize(context) / 44),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getWidthSize(context) / 100,
-                                      horizontal: getWidthSize(context) / 32),
-                                  decoration: BoxDecoration(
-                                      // color: AppColors.primary,
-                                      borderRadius: BorderRadius.circular(
-                                          getWidthSize(context) / 44)),
-                                  child: Text(
-                                    trans.tr('start_now'),
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: getWidthSize(context) / 22),
-                                  ),
-                                )),
-                            Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: getWidthSize(context) / 44,
-                                    horizontal: getWidthSize(context) / 44),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: getWidthSize(context) / 100,
-                                    horizontal: getWidthSize(context) / 32),
-                                child: Text('')),
-                          ],
-                        ),
-                  Container(
-                    padding: const EdgeInsets.all(5),
-                    color: Colors.white,
-                    child: Image.asset(ImageAssets.footerImage,
-                        width: getWidthSize(context) / 3),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

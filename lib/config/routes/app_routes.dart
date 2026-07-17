@@ -3,6 +3,7 @@ import 'package:new_strucuture/features/forget_password/screens/forgot_password_
 import 'package:new_strucuture/features/forget_password/screens/forgot_password_otp_screen.dart';
 import 'package:new_strucuture/features/forget_password/screens/forgot_password_reset_screen.dart';
 import 'package:new_strucuture/features/main_screen/screens/main_screen.dart';
+import 'package:new_strucuture/features/on_boarding/screen/onboarding_screen.dart';
 import 'package:new_strucuture/features/splash/screens/splash_screen.dart';
 import '../../core/utils/app_strings.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,9 +25,7 @@ class AppRoutes {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.initialRoute:
-        return MaterialPageRoute(
-          builder: (context) => const SplashScreen(),
-        );
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
 
       // case Routes.detailsRoute:
       //   final service = settings.arguments as ServicesModel;
@@ -44,6 +43,13 @@ class AppRoutes {
           duration: const Duration(milliseconds: 800),
         );
 
+      case Routes.onboardingPageScreenRoute:
+        return PageTransition(
+          child: const OnBoardingScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
       case Routes.mainRoute:
         return PageTransition(
           child: const MainScreen(),
@@ -92,11 +98,8 @@ class AppRoutes {
 
   static Route<dynamic> undefinedRoute() {
     return MaterialPageRoute(
-      builder: (context) => const Scaffold(
-        body: Center(
-          child: Text(AppStrings.noRouteFound),
-        ),
-      ),
+      builder: (context) =>
+          const Scaffold(body: Center(child: Text(AppStrings.noRouteFound))),
     );
   }
 }

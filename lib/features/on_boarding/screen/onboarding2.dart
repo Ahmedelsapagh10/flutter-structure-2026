@@ -1,58 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/assets_manager.dart';
-import '../../../core/utils/get_size.dart';
-import '../cubit/onboarding_cubit.dart';
+import 'onboarding1.dart';
+
+class OnBoarding2 extends StatelessWidget {
+  const OnBoarding2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const OnboardingPageContent(
+      image: ImageAssets.onboardingImage2,
+      titleKey: 'onboarding_two_title',
+      descriptionKey: 'onboarding_two_description',
+      imageAlignment: Alignment.center,
+    );
+  }
+}
 
 class OnBoarding3 extends StatelessWidget {
   const OnBoarding3({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<OnboardingCubit, OnboardingState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(elevation: 0, actions: []),
-          body: Column(
-            children: [
-              SizedBox(height: getWidthSize(context) / 22),
-              Flexible(
-                fit: FlexFit.tight,
-                child: Padding(
-                  padding: EdgeInsets.all(getWidthSize(context) / 22),
-                  child: Center(
-                    child: Image.asset(
-                      ImageAssets.introBackgroundImage2,
-                      // width: getSize(context) / 1.1,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: getWidthSize(context) / 12),
-              Text(
-                'مبيعاتك أسهل وأكثر كفاءة',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: getWidthSize(context) / 18,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(getWidthSize(context) / 44),
-                child: Text(
-                  'حقق أهدافك البيعية بفضل إدارة متقدمة للعمليات والمزيد من التحكم في كل خطوة.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: getWidthSize(context) / 22,
-                  ),
-                ),
-              ),
-              SizedBox(height: getWidthSize(context) / 12),
-            ],
-          ),
-        );
-      },
+    return const OnboardingPageContent(
+      image: ImageAssets.onboardingImage3,
+      titleKey: 'onboarding_three_title',
+      descriptionKey: 'onboarding_three_description',
+      imageAlignment: Alignment.center,
     );
   }
 }
