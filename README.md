@@ -19,6 +19,7 @@
 - [Project structure](#-project-structure)
 - [Technology stack](#-technology-stack)
 - [Getting started](#-getting-started)
+- [Branding and launcher icons](#-branding-and-launcher-icons)
 - [API reference](#-api-reference)
 - [Authentication and token storage](#-authentication-and-token-storage)
 - [Notifications](#-notifications)
@@ -45,6 +46,8 @@
 | 🛍️ Demo feature | Product catalog, category filters, staggered grid, horizontal list, details sheet, loading/error/retry states |
 | 🔑 Auth UI | Login form, validation, password visibility, and forgot-password email/OTP/reset screens |
 | 🎞️ Splash | Lottie splash animation and external portfolio link |
+| 🧭 Onboarding | Three responsive photographic pages, localized product copy, completion persistence, and a Hero transition into login |
+| 🎯 App icons | One-source launcher-icon generation for Android, iOS, Web, Windows, and macOS |
 | 🗂️ Device services | Image/file picking, sharing, phone/email/WhatsApp/browser/maps launchers, and image viewing |
 | ☁️ Uploads | S3-compatible/DigitalOcean Spaces upload helper using AWS Signature V4 |
 | 🧪 Tests | Widget tests for the login screen and long Arabic button text |
@@ -55,7 +58,7 @@ Knowing what is wired and what is only an example prevents future developers fro
 
 | Feature | Status | Notes |
 |---|---|---|
-| Splash → login | ✅ Working | Navigates after an 8.5-second delay |
+| Splash routing | ✅ Working | Checks onboarding completion after the 8.5-second splash delay |
 | Portfolio link | ✅ Working | Opens an external browser |
 | Product catalog | ✅ Working demo | Reads products from Fake Store API |
 | Language switching | ✅ Working | Arabic/English; restarts the widget tree after switching |
@@ -66,7 +69,8 @@ Knowing what is wired and what is only an example prevents future developers fro
 | Forgot-password repository | 🧩 Available | Endpoints exist, with local fallback behavior; connect the Cubit before production |
 | Firebase Messaging | ⚙️ Configuration required | Firebase option values are blank, so initialization is intentionally skipped |
 | Local notifications | 🧩 Initialized | Notification channel identifiers are placeholders and tap navigation is not connected |
-| Onboarding | 🧩 Partial | Screens/Cubit exist, but the onboarding route is not handled by `AppRoutes` |
+| Onboarding | ✅ Working | Three pages, named route, Arabic/English content, Skip/Get Started persistence, and Hero logo transition to login |
+| Launcher icons | ✅ Configured | Uses `assets/images/app_icon.png` for Android, iOS, Web, Windows, and macOS |
 | API tests | ⚠️ Not included | Add repository and integration tests for your real backend |
 
 ## 🏗️ Architecture
@@ -145,7 +149,7 @@ lib/
 │   └── widgets/                      # Reusable UI components
 └── features/
     ├── splash/                       # Animated startup screen
-    ├── on_boarding/                  # Onboarding scaffold
+    ├── on_boarding/                  # Three-page localized onboarding flow
     ├── login/                        # Login UI, Cubit, repository, model
     ├── forget_password/              # Email → OTP → reset flow
     └── main_screen/                  # Product catalog demo
@@ -153,7 +157,7 @@ lib/
 assets/
 ├── fonts/                            # Alexandria font family (100–900)
 ├── icons/                            # SVG icons
-├── images/                           # Images and Lottie JSON
+├── images/                           # App icon, onboarding photos, images, and Lottie JSON
 └── lang/                             # ar.json and en.json
 ```
 
@@ -181,6 +185,7 @@ Key packages are grouped below. Check `pubspec.yaml` for exact versions.
 | Media/UI | `lottie`, `flutter_svg`, `cached_network_image`, `photo_view`, `image_picker`, `file_picker`, `pinput`, `flutter_staggered_grid_view` |
 | Device integration | `permission_handler`, `url_launcher`, `share_plus`, `path_provider` |
 | Feedback/loading | `cherry_toast`, `flutter_overlay_loader`, `overlay_loader_with_app_icon` |
+| Branding/tooling | `flutter_launcher_icons` |
 
 ## 🚀 Getting started
 
@@ -227,6 +232,25 @@ Replace these template values:
 - iOS bundle identifier and display name in the Xcode project.
 - App title, icon, splash animation, colors, translations, API URL, and notification channel.
 - Debug signing configuration in `android/app/build.gradle` with a release keystore.
+
+## 🎯 Branding and launcher icons
+
+The launcher-icon configuration lives directly in `pubspec.yaml` and uses one source image:
+
+```text
+assets/images/app_icon.png
+```
+
+The source is a 512×512 RGB PNG. Icon generation is enabled for Android, iOS, Web, Windows, and macOS. Android uses the `launcher_icon` resource name, iOS removes the alpha channel, and the Web theme/background colors follow the application palette.
+
+Regenerate every configured platform icon after replacing the source image:
+
+```bash
+flutter pub get
+dart run flutter_launcher_icons -f pubspec.yaml
+```
+
+`flutter_launcher_icons` does not generate Linux desktop icons; configure Linux icons manually in the runner/package metadata.
 
 ## 🌐 API reference
 
@@ -399,7 +423,7 @@ Current widget tests cover:
 Current validation baseline:
 
 - `flutter test`: **2 tests passing**.
-- `flutter analyze`: **3 findings**—one unused import in the onboarding screen and two async `BuildContext` warnings in the splash screen. Resolve these before enforcing a zero-warning CI gate.
+- `flutter analyze`: **2 findings**, both async `BuildContext` notices in the splash screen. The onboarding and login modules analyze cleanly. Resolve the splash notices before enforcing a zero-warning CI gate.
 
 Recommended next tests:
 
@@ -482,7 +506,7 @@ flutter build ios --release
 flutter build web --release
 
 # Regenerate launcher icons
-dart run flutter_launcher_icons
+dart run flutter_launcher_icons -f pubspec.yaml
 ```
 
 ## 🤝 Maintenance rules
