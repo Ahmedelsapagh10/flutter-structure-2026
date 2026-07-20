@@ -511,6 +511,8 @@ dart run flutter_launcher_icons -f pubspec.yaml
 
 ## 🤝 Maintenance rules
 
+Repository-wide instructions for coding agents live in [`AGENTS.md`](AGENTS.md). Claude Code loads the same guidance through [`CLAUDE.md`](CLAUDE.md); personal `CLAUDE.local.md` overrides remain untracked.
+
 - Keep feature-specific code inside its feature.
 - Keep reusable code in `core` only after it is genuinely shared.
 - Do not call Dio directly from widgets or Cubits; use repositories.
