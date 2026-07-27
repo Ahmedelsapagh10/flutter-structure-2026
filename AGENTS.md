@@ -1,51 +1,90 @@
-# Repository Guidance for AI Agents
+Act as a Senior Flutter Engineer.
 
-## Project Context
+Before writing or modifying any code, inspect the existing project structure, the closest similar feature, naming conventions, architecture, shared components, and coding style.
 
-- This repository is a feature-first Flutter starter for localized, API-driven applications.
-- Treat `README.md` as the source of truth for the current architecture, setup, feature status, and production checklist.
-- Preserve the package name `new_strucuture`, including its current spelling, unless the task explicitly requests a coordinated rename across every platform and Dart import.
-- Check the project status in `README.md` before changing behavior. Keep working features, demo/scaffold behavior, and configuration-required integrations clearly distinguished.
+Mandatory rules:
 
-## Architecture
+1. Preserve the current project architecture and folder structure.
 
-- Keep feature-specific code under `lib/features/<feature_name>/`.
-- Follow the Screen/Widget -> Cubit -> Repository -> `BaseApiConsumer` flow for API-backed features.
-- Keep UI rendering and interaction in widgets, state and orchestration in Cubits, transport and response mapping in repositories, and serialization in models.
-- Do not call Dio directly from widgets or Cubits.
-- Put shared code in `lib/core/` only when it is genuinely reused across features.
-- Define application endpoint constants in `lib/core/api/end_points.dart`; do not inline feature URLs.
-- Register repositories and Cubits through GetIt in `lib/injector.dart`.
-- Provide Cubits at the smallest appropriate widget scope; reserve `lib/app.dart` for truly global providers.
-- Add named routes and transitions through `lib/config/routes/app_routes.dart`.
+2. Every new feature must follow the same implementation pattern already used in the project.
 
-## Flutter Conventions
+3. Follow the existing application flow:
 
-- Follow the existing Dart style and the lints in `analysis_options.yaml`; format changed Dart files with `dart format`.
-- Reuse existing core widgets and services before adding overlapping abstractions.
-- Use semantic theme colors through `ThemeHelper.colorsOf(context)` when an appropriate color exists instead of hard-coded feature colors.
-- Keep user-facing text localized. Add every new translation key to both `assets/lang/ar.json` and `assets/lang/en.json`.
-- Preserve explicit Cubit initial, loading, success, and error states for asynchronous flows.
-- Return `Either<Failure, T>` from repositories and map transport exceptions to the established failure types.
+Screen → Cubit → Repository → API / Data Source
 
-## Safety and Scope
+4. Do not introduce a new architecture, state-management solution, folder structure, design pattern, or package unless I explicitly request it.
 
-- Do not commit passwords, API tokens, signing material, production credentials, or object-storage access/secret keys.
-- Do not add secrets to source code, examples, logs, fixtures, or documentation. Use placeholders and documented environment/configuration steps.
-- Do not silently connect demo Cubits to production endpoints, enable incomplete Firebase configuration, or replace scaffold behavior unless the task requests it.
-- Preserve unrelated user changes and keep edits within the requested scope.
-- Update `README.md` when a change affects public architecture, endpoints, setup, feature status, required configuration, or production-readiness notes.
+5. Write clean, readable, maintainable, and reusable code.
 
-## Tests and Handoff
+6. Follow Clean Code and SOLID principles where appropriate.
 
-- Add or update unit, Cubit, repository, or widget tests for every behavior change at the narrowest useful level.
-- Before handoff, run the relevant checks from the repository root:
+7. Each class, file, widget, and function must have one clear responsibility.
 
-```bash
-dart format --output=none --set-exit-if-changed lib test
+8. Screen and page files must never exceed 200 lines.
+The preferred maximum is 150 lines.
+
+9. Prefer keeping all Dart files under 200 lines whenever reasonably possible.
+
+10. If a screen or file becomes too large, split it into smaller files such as:
+
+- Feature widgets
+- Sections
+- Cubits and states
+- Models
+- Repositories
+- Data sources
+- Controllers
+- Mappers
+- Services
+
+11. Do not reduce line count by placing large private widgets, large methods, or compressed unreadable code inside the same file.
+
+12. Screens and widgets must not contain:
+
+- Business logic
+- API calls
+- Database operations
+- Complex data mapping
+- Repository implementations
+
+13. Reuse the existing:
+
+- Shared widgets
+- Theme colors and text styles
+- Localization system
+- Navigation system
+- Dependency injection
+- Error-handling pattern
+- API client and endpoint structure
+
+14. Do not duplicate an existing component or utility.
+
+15. Use const constructors whenever possible.
+
+16. Use descriptive names and avoid vague names such as:
+
+Helper, Manager, Data, Item, Temp, Common, NewWidget.
+
+17. Dispose all controllers, subscriptions, timers, focus nodes, and animation controllers correctly.
+
+18. Keep changes focused on the requested task.
+Do not perform unrelated refactoring.
+
+19. Before implementing a feature:
+
+- Inspect the closest existing feature.
+- Follow the same folder structure.
+- Follow the same naming style.
+- Follow the same Cubit and state pattern.
+- Reuse existing components.
+- Identify which files need to be changed.
+
+20. Before finishing, run or verify:
+
+dart format .
 flutter analyze
 flutter test
-```
 
-- Do not introduce new analyzer findings. Two existing `use_build_context_synchronously` notices in `lib/features/splash/screens/splash_screen.dart` are the documented baseline until fixed by a dedicated change.
-- If a check cannot run because of the local environment, report the exact blocker and still run every unaffected check.
+Never claim that a command passed unless it was actually executed.
+
+If the existing code conflicts with these instructions, preserve the existing application behavior and explain the conflict before making architectural changes.
