@@ -1,7 +1,9 @@
 import 'package:get/get.dart' as gets;
+import 'package:flutter/material.dart';
 import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 
-import '../exports.dart';
+import 'app_colors.dart';
+import 'assets_manager.dart';
 
 class AppWidget {
   static void createProgressDialog(BuildContext context, String msg) {

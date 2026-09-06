@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
+import 'package:new_strucuture/core/utils/app_colors.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
 import '../data/model/product_model.dart';
 

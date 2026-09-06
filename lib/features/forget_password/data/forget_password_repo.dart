@@ -1,4 +1,8 @@
-import 'package:new_strucuture/core/exports.dart';
+import 'package:dartz/dartz.dart';
+
+import '../../../core/api/base_api_consumer.dart';
+import '../../../core/api/end_points.dart';
+import '../../../core/error/failures.dart';
 import 'model/forget_password_model.dart';
 
 class ForgetPasswordRepo {

@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../utils/app_colors.dart';
 
 String getCurrentFormattedDate() {
   final now = DateTime.now();

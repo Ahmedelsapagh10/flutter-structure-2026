@@ -1,10 +1,13 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:new_strucuture/core/exports.dart';
-import 'package:new_strucuture/features/main_screen/cubit/cubit.dart';
-import 'package:new_strucuture/features/main_screen/cubit/state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_strucuture/features/main_screen/cubit/main_cubit.dart';
+import 'package:new_strucuture/features/main_screen/cubit/main_state.dart';
 import 'package:new_strucuture/config/themes/theme_cubit.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
+import 'package:new_strucuture/core/utils/app_colors.dart';
+import 'package:new_strucuture/core/utils/assets_manager.dart';
 import 'package:new_strucuture/core/utils/restart_app_class.dart';
 import '../data/model/product_model.dart';
 import '../widget/horizontal_product_card.dart';
@@ -28,13 +31,6 @@ class _MainScreenState extends State<MainScreen> {
     "men's clothing",
     "women's clothing",
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch products on load
-    context.read<MainCubit>().getProductsList();
-  }
 
   String categoryKey(String cat) {
     if (cat.toLowerCase() == 'all') return 'all';

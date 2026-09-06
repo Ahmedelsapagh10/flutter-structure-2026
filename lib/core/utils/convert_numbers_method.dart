@@ -7,7 +7,6 @@ String replaceToArabicNumber(String input) {
   }
   return input;
 }
-
 String replaceToArabicDate(String input) {
   List<String> date = input.toString().substring(0, 10).split("-");
   List<String> newDate = [];

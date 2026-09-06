@@ -1,4 +1,8 @@
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'app_colors.dart';
+import 'app_strings.dart';
 
 TextStyle _getTextStyle(
     {required double fontSize,

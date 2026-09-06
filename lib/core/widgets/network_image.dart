@@ -1,4 +1,7 @@
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
+
+import '../utils/app_colors.dart';
+import '../utils/assets_manager.dart';
 
 // Amer
 class CustomNetworkImage extends StatelessWidget {

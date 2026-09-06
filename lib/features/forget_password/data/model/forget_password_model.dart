@@ -7,7 +7,6 @@ class SendCodeRequest {
     return {'email': email};
   }
 }
-
 class VerifyCodeRequest {
   final String email;
   final String code;

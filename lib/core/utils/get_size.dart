@@ -1,4 +1,5 @@
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 double getWidthSize(BuildContext context) {
   return MediaQuery.sizeOf(context).width;

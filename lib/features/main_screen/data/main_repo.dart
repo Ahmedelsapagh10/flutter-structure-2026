@@ -1,4 +1,8 @@
-import '../../../core/exports.dart';
+import 'package:dartz/dartz.dart';
+
+import '../../../core/api/base_api_consumer.dart';
+import '../../../core/error/exceptions.dart';
+import '../../../core/error/failures.dart';
 import 'model/product_model.dart';
 
 class MainRepo {

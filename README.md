@@ -42,14 +42,12 @@
 | 🎨 Theming | Light/dark themes with a persisted theme choice |
 | 📱 Responsive UI | `flutter_screenutil`, width-aware layouts, and reusable widgets |
 | 🧭 Navigation | Central named routes with animated page transitions |
-| 📶 Connectivity | Initial connection check and connectivity change stream |
 | 🛍️ Demo feature | Product catalog, category filters, staggered grid, horizontal list, details sheet, loading/error/retry states |
 | 🔑 Auth UI | Login form, validation, password visibility, and forgot-password email/OTP/reset screens |
 | 🎞️ Splash | Lottie splash animation and external portfolio link |
 | 🧭 Onboarding | Three responsive photographic pages, localized product copy, completion persistence, and a Hero transition into login |
 | 🎯 App icons | One-source launcher-icon generation for Android, iOS, Web, Windows, and macOS |
 | 🗂️ Device services | Image/file picking, sharing, phone/email/WhatsApp/browser/maps launchers, and image viewing |
-| ☁️ Uploads | S3-compatible/DigitalOcean Spaces upload helper using AWS Signature V4 |
 | 🧪 Tests | Widget tests for the login screen and long Arabic button text |
 
 ## 🚦 Project status
@@ -125,6 +123,9 @@ sequenceDiagram
 - **DioConsumer:** Dio configuration, headers, JSON parsing, and network errors.
 - **GetIt:** object creation and dependency lifetime.
 
+Only app-wide state, such as `ThemeCubit`, is provided in `app.dart`. Feature
+Cubits are created by their route and disposed when that route is removed.
+
 ## 🗂️ Project structure
 
 ```text
@@ -139,14 +140,13 @@ lib/
 ├── core/
 │   ├── api/                          # Dio, endpoints, interceptors, status codes
 │   ├── error/                        # Exceptions and failures
-│   ├── init_config/                  # Startup initialization
-│   ├── models/                       # Shared models
+│   ├── initialization/               # Application startup
 │   ├── notification_services/        # FCM and local notifications
 │   ├── preferences/                  # Secure storage and SharedPreferences
-│   ├── services/                     # Picker, share, URL, permission helpers
-│   ├── shared/                       # Shared APIs/controllers
+│   ├── services/                     # Reusable device capabilities
 │   ├── utils/                        # Constants, colors, translations, extensions
-│   └── widgets/                      # Reusable UI components
+│   ├── widgets/                      # Reusable UI components
+│   └── README.md                     # Rules for adding code to core
 └── features/
     ├── splash/                       # Animated startup screen
     ├── on_boarding/                  # Three-page localized onboarding flow
@@ -177,10 +177,10 @@ Key packages are grouped below. Check `pubspec.yaml` for exact versions.
 | Purpose | Packages |
 |---|---|
 | State and DI | `flutter_bloc`, `equatable`, `get_it`, `dartz` |
-| Networking | `dio`, `pretty_dio_logger`, `http`, `connectivity_plus` |
+| Networking | `dio`, `pretty_dio_logger` |
 | Persistence | `flutter_secure_storage`, `shared_preferences` |
 | Firebase/notifications | `firebase_core`, `firebase_messaging`, `flutter_local_notifications` |
-| Localization/responsiveness | `easy_localization`, `flutter_screenutil`, `auto_size_text`, `intl` |
+| Localization/responsiveness | `easy_localization`, `flutter_screenutil`, `auto_size_text` |
 | Navigation | Flutter named routes, `page_transition`, `get` |
 | Media/UI | `lottie`, `flutter_svg`, `cached_network_image`, `photo_view`, `image_picker`, `file_picker`, `pinput`, `flutter_staggered_grid_view` |
 | Device integration | `permission_handler`, `url_launcher`, `share_plus`, `path_provider` |
@@ -264,7 +264,6 @@ dart run flutter_launcher_icons -f pubspec.yaml
 | `POST` | `https://elsapaghtest.net/api/auth/verify-code` | `ForgetPasswordRepo.verifyCode` | Repository exists; Cubit is simulated |
 | `POST` | `https://elsapaghtest.net/api/auth/reset-password` | `ForgetPasswordRepo.resetPassword` | Repository exists; Cubit is simulated |
 | `GET` | `https://fakestoreapi.com/products` | `MainRepo.getProducts` | Active demo endpoint |
-| `PUT` | S3-compatible object URL | `UploadImagesToS3Api.uploadFiles` | Helper available; requires secure server-issued credentials |
 
 Keep new application endpoints in `lib/core/api/end_points.dart`. Avoid defining feature URLs inline.
 
@@ -306,7 +305,7 @@ class ProfileRepo {
 }
 ```
 
-Register the repository/Cubit in `lib/injector.dart`, provide the Cubit in `lib/app.dart`, and add repository plus Cubit tests.
+Register the repository/Cubit in `lib/injector.dart`, provide the Cubit at its route in `app_routes.dart`, and add repository plus Cubit tests. Use `app.dart` only for truly app-wide state.
 
 ### Manual API smoke tests
 
@@ -453,7 +452,7 @@ test/
 ## ➕ Adding a new feature
 
 1. Create `lib/features/<feature_name>/`.
-2. Add `data/model`, repository, `cubit`, state, `screens`, and optional `widget` folders.
+2. Add `data/model`, repository, `<feature>_cubit.dart`, `<feature>_state.dart`, `screens`, and optional `widget` folders.
 3. Add endpoint constants to `EndPoints`.
 4. Use `BaseApiConsumer` in the repository and return `Either<Failure, T>`.
 5. Keep UI state inside the Cubit and emit explicit initial/loading/success/error states.

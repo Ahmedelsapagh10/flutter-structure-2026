@@ -1,4 +1,8 @@
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../utils/app_colors.dart';
+import '../utils/app_fonts.dart';
 
 class CustomTextField extends StatefulWidget {
   final String? labelText;

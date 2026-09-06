@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
 import 'package:new_strucuture/config/routes/app_routes.dart';
-import '../cubit/cubit.dart';
-import '../cubit/state.dart';
+import 'package:new_strucuture/core/utils/app_colors.dart';
+import 'package:new_strucuture/core/utils/app_fonts.dart';
+import '../cubit/forget_password_cubit.dart';
+import '../cubit/forget_password_state.dart';
 
 import 'package:intl_phone_field/intl_phone_field.dart';
 

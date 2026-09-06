@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/main_repo.dart';
-import 'state.dart';
+import 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
   final MainRepo api;
@@ -11,7 +11,8 @@ class MainCubit extends Cubit<MainState> {
     emit(MainLoading());
     final result = await api.getProducts();
     result.fold(
-      (failure) => emit(MainError("Failed to load products. Please try again.")),
+      (failure) =>
+          emit(MainError("Failed to load products. Please try again.")),
       (products) => emit(MainLoaded(products)),
     );
   }

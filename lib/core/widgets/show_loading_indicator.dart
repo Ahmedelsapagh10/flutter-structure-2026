@@ -1,6 +1,10 @@
 import 'dart:io';
 
-import '../exports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../utils/app_colors.dart';
+import '../utils/assets_manager.dart';
 
 class CustomLoadingIndicator extends StatefulWidget {
   const CustomLoadingIndicator({super.key, this.withLogo = true});

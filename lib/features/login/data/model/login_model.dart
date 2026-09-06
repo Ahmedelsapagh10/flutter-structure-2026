@@ -27,7 +27,6 @@ class LoginModel {
         "code": code,
       };
 }
-
 class LoginModelData {
   final User? user;
   final String? accessToken;

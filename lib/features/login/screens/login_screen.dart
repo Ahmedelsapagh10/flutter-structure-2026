@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
+import 'package:new_strucuture/core/utils/app_colors.dart';
+import 'package:new_strucuture/core/utils/app_fonts.dart';
+import 'package:new_strucuture/core/utils/assets_manager.dart';
 import 'package:new_strucuture/core/widgets/custom_button.dart';
 import '../../../config/routes/app_routes.dart';
 

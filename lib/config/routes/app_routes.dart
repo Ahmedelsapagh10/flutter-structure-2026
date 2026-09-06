@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_strucuture/features/forget_password/screens/forgot_password_email_screen.dart';
 import 'package:new_strucuture/features/forget_password/screens/forgot_password_otp_screen.dart';
 import 'package:new_strucuture/features/forget_password/screens/forgot_password_reset_screen.dart';
+import 'package:new_strucuture/features/forget_password/cubit/forget_password_cubit.dart';
+import 'package:new_strucuture/features/login/cubit/login_cubit.dart';
+import 'package:new_strucuture/features/main_screen/cubit/main_cubit.dart';
 import 'package:new_strucuture/features/main_screen/screens/main_screen.dart';
 import 'package:new_strucuture/features/on_boarding/screen/onboarding_screen.dart';
+import 'package:new_strucuture/features/splash/cubit/splash_cubit.dart';
 import 'package:new_strucuture/features/splash/screens/splash_screen.dart';
+import 'package:new_strucuture/injector.dart' as injector;
 import '../../core/utils/app_strings.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../features/login/screens/login_screen.dart';
@@ -25,19 +31,19 @@ class AppRoutes {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.initialRoute:
-        return MaterialPageRoute(builder: (context) => const SplashScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => injector.serviceLocator<SplashCubit>(),
+            child: const SplashScreen(),
+          ),
+        );
 
-      // case Routes.detailsRoute:
-      //   final service = settings.arguments as ServicesModel;
-      //   return MaterialPageRoute(
-      //     // Extract the service model argument from the settings arguments map
-      //
-      //     builder: (context) => Details(service: service),
-      //   );
-      //
       case Routes.loginRoute:
         return PageTransition(
-          child: const LoginScreen(),
+          child: BlocProvider(
+            create: (_) => injector.serviceLocator<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
@@ -52,21 +58,31 @@ class AppRoutes {
         );
       case Routes.mainRoute:
         return PageTransition(
-          child: const MainScreen(),
+          child: BlocProvider(
+            create: (_) =>
+                injector.serviceLocator<MainCubit>()..getProductsList(),
+            child: const MainScreen(),
+          ),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
         );
       case Routes.forgotPasswordEmailRoute:
         return PageTransition(
-          child: const ForgotPasswordEmailScreen(),
+          child: BlocProvider(
+            create: (_) => injector.serviceLocator<ForgetPasswordCubit>(),
+            child: const ForgotPasswordEmailScreen(),
+          ),
           type: PageTransitionType.rightToLeft,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 400),
         );
       case Routes.forgotPasswordOtpRoute:
         return PageTransition(
-          child: const ForgotPasswordOtpScreen(),
+          child: BlocProvider(
+            create: (_) => injector.serviceLocator<ForgetPasswordCubit>(),
+            child: const ForgotPasswordOtpScreen(),
+          ),
           type: PageTransitionType.rightToLeft,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 400),
@@ -74,23 +90,15 @@ class AppRoutes {
         );
       case Routes.forgotPasswordResetRoute:
         return PageTransition(
-          child: const ForgotPasswordResetScreen(),
+          child: BlocProvider(
+            create: (_) => injector.serviceLocator<ForgetPasswordCubit>(),
+            child: const ForgotPasswordResetScreen(),
+          ),
           type: PageTransitionType.rightToLeft,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 400),
           settings: settings,
         );
-      //
-      // case Routes.resultOfLessonExam:
-      //   ResponseOfApplyLessonExmamData model =
-      //       settings.arguments as ResponseOfApplyLessonExmamData;
-      //   return PageTransition(
-      //     child: ResultExamLessonScreen(model: model),
-      //     type: PageTransitionType.fade,
-      //     alignment: Alignment.center,
-      //     duration: const Duration(milliseconds: 800),
-      //   );
-
       default:
         return undefinedRoute();
     }

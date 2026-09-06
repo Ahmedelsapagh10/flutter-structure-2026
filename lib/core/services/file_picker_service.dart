@@ -18,7 +18,6 @@ class FilePickerService {
     }
   }
 }
-
 class ImagePickerService {
   static Future<String?> pickFile({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();

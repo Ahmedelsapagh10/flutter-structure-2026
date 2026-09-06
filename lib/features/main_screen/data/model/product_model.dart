@@ -43,7 +43,6 @@ class ProductModel {
     };
   }
 }
-
 class RatingModel {
   final double rate;
   final int count;

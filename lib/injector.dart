@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:new_strucuture/config/themes/theme_cubit.dart';
-import 'package:new_strucuture/features/login/cubit/cubit.dart';
+import 'package:new_strucuture/features/login/cubit/login_cubit.dart';
 import 'package:new_strucuture/features/login/data/login_repo.dart';
-import 'package:new_strucuture/features/main_screen/cubit/cubit.dart';
-import 'package:new_strucuture/features/splash/cubit/cubit.dart';
-import 'package:new_strucuture/features/forget_password/cubit/cubit.dart';
+import 'package:new_strucuture/features/main_screen/cubit/main_cubit.dart';
+import 'package:new_strucuture/features/splash/cubit/splash_cubit.dart';
+import 'package:new_strucuture/features/forget_password/cubit/forget_password_cubit.dart';
 import 'package:new_strucuture/features/forget_password/data/forget_password_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,48 +14,33 @@ import 'core/api/dio_consumer.dart';
 import 'features/main_screen/data/main_repo.dart';
 
 final serviceLocator = GetIt.instance;
-Future<void> setupCubit() async {
-  serviceLocator.registerFactory(
-    () => SplashCubit(),
-  );
+void registerCubits() {
+  serviceLocator.registerFactory(() => SplashCubit());
 
-  serviceLocator.registerFactory(
-    () => LoginCubit(
-      serviceLocator(),
-    ),
-  );
-  serviceLocator.registerFactory(
-    () => MainCubit(
-      serviceLocator(),
-    ),
-  );
-  serviceLocator.registerFactory(
-    () => ThemeCubit(),
-  );
-  serviceLocator.registerFactory(
-    () => ForgetPasswordCubit(
-      serviceLocator(),
-    ),
-  );
+  serviceLocator.registerFactory(() => LoginCubit(serviceLocator()));
+  serviceLocator.registerFactory(() => MainCubit(serviceLocator()));
+  serviceLocator.registerFactory(() => ThemeCubit());
+  serviceLocator.registerFactory(() => ForgetPasswordCubit(serviceLocator()));
 }
 
-Future<void> setupRepo() async {
+void registerRepositories() {
   serviceLocator.registerLazySingleton(() => LoginRepo(serviceLocator()));
   serviceLocator.registerLazySingleton(() => MainRepo(serviceLocator()));
-  serviceLocator.registerLazySingleton(() => ForgetPasswordRepo(serviceLocator()));
+  serviceLocator.registerLazySingleton(
+    () => ForgetPasswordRepo(serviceLocator()),
+  );
 }
 
-Future<void> setupDependencyInjection() async {
+Future<void> setupDependencies() async {
   await serviceLocator.reset();
   final sharedPreferences = await SharedPreferences.getInstance();
   serviceLocator.registerLazySingleton(() => sharedPreferences);
 
-  ///! (dio)
   serviceLocator.registerLazySingleton<BaseApiConsumer>(
-      () => DioConsumer(client: serviceLocator()));
+    () => DioConsumer(client: serviceLocator()),
+  );
   serviceLocator.registerLazySingleton(() => AppInterceptors());
 
-  // Dio
   serviceLocator.registerLazySingleton(
     () => Dio(
       BaseOptions(

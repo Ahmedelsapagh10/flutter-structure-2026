@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:new_strucuture/core/exports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_strucuture/config/themes/theme_helper.dart';
 import 'package:new_strucuture/config/routes/app_routes.dart';
+import 'package:new_strucuture/core/utils/app_colors.dart';
+import 'package:new_strucuture/core/utils/app_fonts.dart';
 import 'package:new_strucuture/features/forget_password/data/model/forget_password_model.dart';
-import '../cubit/cubit.dart';
-import '../cubit/state.dart';
+import '../cubit/forget_password_cubit.dart';
+import '../cubit/forget_password_state.dart';
 
 class ForgotPasswordResetScreen extends StatefulWidget {
   const ForgotPasswordResetScreen({super.key});

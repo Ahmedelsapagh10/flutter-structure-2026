@@ -2,9 +2,11 @@ import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:new_strucuture/core/exports.dart';
 import 'package:new_strucuture/core/preferences/flutter_secure_storage.dart';
+import 'package:new_strucuture/core/utils/app_colors.dart';
+import 'package:new_strucuture/core/utils/assets_manager.dart';
 import 'package:new_strucuture/core/utils/extentions.dart';
 
 class AppConstance {
@@ -57,15 +59,6 @@ class AppConstance {
 
   static const String mobilePrefixNo = "966";
 
-  static const String supportTicketsToken =
-      "EAAUgm6XzF64BO1amwALx6ZCgc3P7rqj5JWh5kqOO7bRQNeOXE4uSHMXwDd5ZCubiXTGMVYXZCzaLJkBzZB1Lq5Skpw2x63W7df998ZAiO1o6VgcHe9znKXuRAMOXvDTsjZAilBIlYtDp1INZButQPifZBSzGJgJH1EdprPzYdyvwvGohNaulKGiJ55D8ZBsOjZARQD";
-  //! AMAZON
-  static const String accessKey = 'DO801HV9G3RTD2NM9Q6N';
-  static const String secretKey = '2cSJwWHR2S9E/8w+Kfa2q5XU9tWL3o+J5KXNVHRpTBQ';
-  static const String region = 'blr1';
-  static const String bucketName = 'rdapps';
-  static const String endpoint = 'https://blr1.digitaloceanspaces.com/';
-  static const String destinationPath = 'Uploads/Reports/inspection';
   Future<Map<String, String>> getHeader({bool isToken = true}) async {
     return {
       "Accept": "application/json",
